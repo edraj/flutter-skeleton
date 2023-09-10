@@ -1,34 +1,67 @@
-<svg width="208" height="64" viewBox="0 0 208 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_17914_160706)">
-        <path d="M146.758 18.295L163.004 34.3752H145.894L138.219 26.7542L146.758 18.295ZM138.2 8.13366L145.875 0.512695H162.984L146.738 16.5993L138.2 8.13366Z" fill="white"/>
-        <path d="M182.486 34.318V8.98466H167.276V0.525391H208V8.98466H192.841V34.318H182.486Z" fill="white"/>
-        <path d="M26.5371 34.3249L21.8104 28.4631L0.0957926 0.519531H12.8048L29.4985 21.1469V0.525849H39.1885V34.3249H26.5371ZM9.76664 15.7043V34.3249H0.019043V3.16781L9.76664 15.7043Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M128.542 17.4376V0.5L119.984 8.96563L128.542 17.4376Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M128.542 34.3751L137.093 25.9095L128.542 17.4375V34.3751Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M137.1 25.9098L145.658 17.4378L137.1 8.96582V25.9098Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M137.099 25.9098V8.96582L128.542 17.4378L137.099 25.9098Z" fill="white"/>
-        <path d="M128.542 17.4376L137.093 8.96563L128.542 0.5V17.4376Z" fill="white"/>
-        <path d="M128.542 34.3753L119.984 25.9097V34.3753H128.542Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M128.542 34.3751V17.4375L119.984 25.9095L128.542 34.3751Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M119.99 34.3753V25.9097L111.432 34.3753H119.99Z" fill="white"/>
-        <path d="M119.99 0.5V8.96563L128.542 0.5H119.99Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M119.99 8.96563V0.5H111.432L119.99 8.96563Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.0791 26.6209H86.0397V34.3244H48.0791V26.6209ZM48.0791 13.589H86.0397V21.2925H48.0791V13.589ZM48.0791 0.525391H86.0397V8.22892H48.0791V0.525391Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M107.844 17.4376V0.5L99.2861 8.96563L107.844 17.4376Z" fill="white"/>
-        <path d="M107.844 34.3751L116.402 25.9095L107.844 17.4375V34.3751Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M116.402 25.9098L124.96 17.4378L116.402 8.96582V25.9098Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M116.402 25.9098V8.96582L107.844 17.4378L116.402 25.9098Z" fill="white"/>
-        <path d="M107.844 17.4376L116.402 8.96563L107.844 0.5V17.4376Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M107.844 34.3753L99.2861 25.9097V34.3753H107.844Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M107.844 34.3751V17.4375L99.2861 25.9095L107.844 34.3751Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M99.2923 34.3753V25.9097L90.7344 34.3753H99.2923Z" fill="white"/>
-        <path d="M99.2925 0.5V8.96563L107.844 0.5H99.2925Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M99.2923 8.96563V0.5H90.7344L99.2923 8.96563Z" fill="white"/>
-        <path d="M185.659 45.8957V63.4938H187.936V48.0296L203.926 63.4938H207.418V45.8957H205.16V61.4298L189.1 45.8957H185.659ZM161.853 52.1766C161.853 50.5064 161.629 48.7726 163.867 48.0296C164.641 47.7628 165.479 47.8264 166.937 47.8264H174.146C175.252 47.8264 177.862 47.7184 178.853 48.7091C179.742 49.5855 179.742 51.0335 179.742 52.7927V56.0252C179.742 58.1782 179.672 59.7151 178.834 60.5724C177.792 61.6267 175.738 61.5568 174.21 61.5568H167.328C165.978 61.5568 163.944 61.6902 162.85 60.6359C161.757 59.5817 161.833 57.6256 161.833 56.0252L161.853 52.1766ZM166.522 45.8957C164.705 45.8957 163.023 46.0037 161.718 46.7531C159.46 48.0232 159.595 50.4873 159.595 52.9705V56.5079C159.595 58.3052 159.531 60.7439 161.079 62.3062C162.447 63.6462 165.479 63.4938 166.432 63.4938H175.124C176.717 63.4938 179.371 63.4239 180.683 62.1728C181.994 60.9217 182.032 57.7781 182.032 56.7937V52.5767C182.032 50.7922 182.141 48.8615 180.548 47.3246C178.956 45.7877 176.384 45.8957 174.728 45.8957H166.522ZM153.678 63.4938H155.936V45.8957H153.678V63.4938ZM131.574 45.8957V47.8009H140.471V63.4684H142.748V47.8264H151.485V45.9211L131.574 45.8957ZM120.201 57.7781L126.067 47.7628L131.906 57.7781H120.201ZM124.519 45.8957L114.285 63.4938H116.844L119.127 59.6007H133.128L135.43 63.4938H137.989L127.506 45.8957H124.519ZM94.6939 54.5963V47.8264H105.42C106.482 47.8264 108.618 47.6739 109.405 49.0965C109.782 49.6871 109.846 52.6974 109.405 53.3833C108.567 54.7233 106.846 54.5899 104.717 54.5899L94.6939 54.5963ZM92.4105 45.8957V63.4938H94.6939V56.5079H105.337C106.373 56.5079 108.254 56.311 109.117 57.2065C109.801 57.9114 109.718 60.1977 109.718 61.271V63.4938H111.97V60.8582C111.97 58.3941 112.257 56.4634 109.117 55.6251C110.268 55.4092 110.978 55.1425 111.599 54.1772C112.219 53.2118 112.014 48.9949 111.528 48.0677C110.313 45.8322 106.974 45.8957 105.977 45.8957H92.4105ZM71.7256 45.8957V63.4938H88.995V61.5885H73.9835V55.352H88.2595V53.504H73.9835V47.8581H88.8735V45.9529L71.7256 45.8957ZM46.263 45.8957V63.4938H48.5399V48.0296L64.5301 63.4938H68.0287V45.8957H65.771V61.4298L49.7104 45.8957H46.263ZM25.5716 45.8957V63.4938H42.841V61.5885H27.887V55.352H42.1567V53.504H27.887V47.8581H42.7771V45.9529L25.5716 45.8957ZM21.734 51.3193C21.734 50.3095 21.7341 48.9949 21.1584 48.1439C19.9176 46.1434 16.9753 45.902 15.581 45.902H7.39407C5.36012 45.902 3.01276 45.9021 1.55446 47.35C0.0961571 48.798 0.160083 51.3955 0.160083 52.6466V56.4571C0.160083 58.0384 0.160108 60.5851 1.62481 62.0395C3.08951 63.4938 6.33229 63.4874 7.43881 63.4874H15.7537C17.4295 63.4874 19.3803 63.335 20.6403 62.0395C22.1434 60.5216 21.9706 57.5939 21.9706 56.3237V54.6344H10.5281V56.5396H19.5338C19.5338 57.9241 19.5338 59.442 19.182 60.058C18.2737 61.5949 16.8538 61.5695 15.2164 61.5695H7.76501C6.65849 61.5695 4.41987 61.7029 3.44767 60.801C2.38592 59.7722 2.45625 57.6256 2.45625 55.6188V52.7165C2.45625 51.205 2.4115 49.5982 3.35812 48.6964C4.30473 47.7946 6.63289 47.839 7.98246 47.839H15.9711C17.1672 47.839 18.3185 47.9533 18.9581 48.6329C19.732 49.4013 19.6425 50.6524 19.6425 51.332L21.734 51.3193Z" fill="white"/>
-    </g>
-    <defs>
-        <clipPath id="clip0_17914_160706">
-            <rect width="208" height="63" fill="white" transform="translate(0 0.5)"/>
-        </clipPath>
-    </defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="208"
+   height="64"
+   viewBox="0 0 208 64"
+   fill="none"
+   version="1.1"
+   id="svg25"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview25"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.3777873"
+     inkscape:cx="117.54626"
+     inkscape:cy="49.625969"
+     inkscape:window-width="1440"
+     inkscape:window-height="868"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg25" />
+  <defs
+     id="defs25">
+    <clipPath
+       id="clip0_17914_160706">
+      <rect
+         width="208"
+         height="63"
+         fill="white"
+         transform="translate(0 0.5)"
+         id="rect25" />
+    </clipPath>
+  </defs>
+  <text
+     xml:space="preserve"
+     style="font-style:oblique;font-weight:bold;font-size:42.2897px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold Oblique';fill:none;stroke-width:0.333865"
+     x="30.161041"
+     y="33.782265"
+     id="text25"
+     transform="scale(0.91900024,1.088139)"><tspan
+       sodipodi:role="line"
+       id="tspan25"
+       x="30.161041"
+       y="33.782265"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold';stroke-width:0.333865;fill:none">DMART</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:none"
+     x="41.893475"
+     y="56.906658"
+     id="text26"><tspan
+       sodipodi:role="line"
+       id="tspan26"
+       x="41.893475"
+       y="56.906658">SKELETON APP</tspan></text>
 </svg>

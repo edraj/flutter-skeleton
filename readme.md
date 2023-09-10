@@ -12,3 +12,14 @@ Todos ...
    show profile, allow change password, displayname, avatar, show list of roles ... etc
 - Dynamic dispay of top-level sections Spaces and 1st level-child-folders
 - Dynamic / custom Forms (read / edit)
+
+
+
+#### To run the app
+```bash
+git clone https://github.com/edraj/flutter_skeleton.git
+cd flutter_skeleton
+# flutter create .
+flutter packages get
+flutter run
+```
