@@ -41,16 +41,16 @@ class ResponseEntry extends MetaExtended {
     required this.workflow_shortname,
     required this.state,
   }) : super(
-    email: email,
-    msisdn: msisdn,
-    is_email_verified: is_email_verified,
-    is_msisdn_verified: is_msisdn_verified,
-    force_password_change: force_password_change,
-    password: password,
-    workflow_shortname: workflow_shortname,
-    state: state,
-    is_open: is_open,
-  );
+          email: email,
+          msisdn: msisdn,
+          is_email_verified: is_email_verified,
+          is_msisdn_verified: is_msisdn_verified,
+          force_password_change: force_password_change,
+          password: password,
+          workflow_shortname: workflow_shortname,
+          state: state,
+          is_open: is_open,
+        );
 
   factory ResponseEntry.fromJson(Map<String, dynamic> json) {
     return ResponseEntry(

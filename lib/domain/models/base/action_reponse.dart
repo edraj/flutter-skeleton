@@ -35,12 +35,12 @@ class _ActionResponseRecord extends ResponseRecord {
     required ResponseRecordAttributes attributes,
     required this.attachments,
   }) : super(
-    resourceType: resourceType,
-    uuid: uuid,
-    shortname: shortname,
-    subpath: subpath,
-    attributes: attributes,
-  );
+          resourceType: resourceType,
+          uuid: uuid,
+          shortname: shortname,
+          subpath: subpath,
+          attributes: attributes,
+        );
 
   factory _ActionResponseRecord.fromJson(Map<String, dynamic> json) {
     return _ActionResponseRecord(

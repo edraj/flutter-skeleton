@@ -23,11 +23,11 @@ class Payload {
       content_type: ContentType.values.byName(json['content_type']),
       schema_shortname: json['schema_shortname'],
       checksum: json['checksum'],
-      body: json['body'], // This assumes 'body' can be both String or Map
+      body: json['body'],
+      // This assumes 'body' can be both String or Map
       last_validated: json['last_validated'],
-      validation_status: ValidationStatus.values.byName(json['validation_status']),
+      validation_status:
+          ValidationStatus.values.byName(json['validation_status']),
     );
   }
 }
-
-

@@ -11,16 +11,15 @@ import 'package:dmart_android_flutter/domain/models/base/query_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/response_entry.dart';
 import 'package:dmart_android_flutter/domain/models/base/retrieve_entry_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
+import 'package:dmart_android_flutter/domain/models/login_model.dart';
 import 'package:dmart_android_flutter/utils/enums/base/query_type.dart';
 import 'package:dmart_android_flutter/utils/enums/base/sort_type.dart';
 
-
 class DmartAPIS {
-  Map<String, dynamic> headers = {
-    // Add your headers here
-  };
+  static Map<String, dynamic> _headers = {"content-type": "application/json"};
 
-  Future<ApiResponse> login(String shortname, String password) async {
+  static Future<LoginResponseModel> login(
+      String shortname, String password) async {
     try {
       final response = await dio.post(
         '/user/login',
@@ -28,13 +27,22 @@ class DmartAPIS {
           'shortname': shortname,
           'password': password,
         },
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
-      return ApiResponse.fromJson(response.data);
-    } catch (e) {
-      // Handle the error here
-      throw e;
+      return LoginResponseModel.fromJson(response.data);
+    } on DioException catch (e) {
+      print(e.response?.data);
+      if (e.response?.data != null) {
+        dynamic error = e.response?.data;
+        return LoginResponseModel.fromJson(error);
+      }
+      return LoginResponseModel.fromJson({
+        "status": "failed",
+        "type": "UNKNOW",
+        "code": 666,
+        "message": "Unkonw error"
+      });
     }
   }
 
@@ -42,7 +50,7 @@ class DmartAPIS {
     try {
       final response = await dio.post(
         '/user/logout',
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return ApiResponse.fromJson(response.data);
@@ -56,7 +64,7 @@ class DmartAPIS {
     try {
       final response = await dio.get(
         '/user/profile',
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       final profileResponse = ProfileResponse.fromJson(response.data);
@@ -83,7 +91,7 @@ class DmartAPIS {
       final response = await dio.post(
         '/managed/query',
         data: query.toJson(),
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return ApiQueryResponse.fromJson(response.data);
@@ -98,7 +106,7 @@ class DmartAPIS {
       final response = await dio.post(
         '/managed/request',
         data: action.toJson(),
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return ActionResponse.fromJson(response.data);
@@ -115,7 +123,7 @@ class DmartAPIS {
       final response = await dio.get(
         '/managed/entry/${request.resourceType.toString()}/${request.spaceName}/${request.subpath}/${request.shortname}?retrieve_json_payload=${request.retrieveJsonPayload}&retrieve_attachments=${request.retrieveAttachments}&validate_schema=${request.validateSchema}'
             .replaceAll(RegExp(r'/+'), '/'),
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return ResponseEntry.fromJson(response.data);
@@ -135,11 +143,11 @@ class DmartAPIS {
     ));
   }
 
-   Future<dynamic> getPayload(GetPayloadRequest request) async {
+  Future<dynamic> getPayload(GetPayloadRequest request) async {
     try {
       final response = await dio.get(
         '/managed/payload/${request.resourceType}/${request.spaceName}/${request.subpath}/${request.shortname}${request.ext}',
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return response.data;
@@ -149,8 +157,7 @@ class DmartAPIS {
     }
   }
 
-  Future<ApiQueryResponse> progressTicket(
-      ProgressTicketRequest request) async {
+  Future<ApiQueryResponse> progressTicket(ProgressTicketRequest request) async {
     try {
       final response = await dio.put(
         '/managed/progress-ticket/${request.spaceName}/${request.subpath}/${request.shortname}/${request.action}',
@@ -158,7 +165,7 @@ class DmartAPIS {
           'resolution': request.resolution,
           'comment': request.comment,
         },
-        options: Options(headers: headers),
+        options: Options(headers: _headers),
       );
 
       return ApiQueryResponse.fromJson(response.data);

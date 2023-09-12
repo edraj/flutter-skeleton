@@ -1,13 +1,14 @@
 import 'package:dmart_android_flutter/domain/models/base/records.dart';
+import 'package:dmart_android_flutter/domain/models/base/status.dart';
 
 class BaseResponse {
-  String? status;
+  Status? status;
   List<Record>? records;
 
   BaseResponse({this.status, this.records});
 
   BaseResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    status = Status.values.byName(json['status']);
     if (json['records'] != null) {
       records = <Record>[];
       json['records'].forEach((v) {

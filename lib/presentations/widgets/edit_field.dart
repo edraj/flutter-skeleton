@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:dmart_android_flutter/presentations/widgets/field_error_container.dart';
 import 'package:dmart_android_flutter/utils/constants/colors.dart';
 import 'package:dmart_android_flutter/utils/helpers/advance_text_editing_controller.dart';
+import 'package:flutter/material.dart';
 
 class EditField extends StatefulWidget {
   AdvanceTextEditingController controller;
