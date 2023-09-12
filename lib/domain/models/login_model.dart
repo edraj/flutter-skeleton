@@ -1,4 +1,4 @@
-import 'package:dmart_android_flutter/domain/models/base/Error.dart';
+import 'package:dmart_android_flutter/domain/models/base/error.dart';
 import 'package:dmart_android_flutter/domain/models/base/base_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/domain/models/base/records.dart';
