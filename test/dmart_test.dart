@@ -14,6 +14,7 @@ void main() {
       expect(response.status, Status.success);
       expect(response.type, UserType.web);
       expect(response.records?[0].shortname, "dmart");
+      expect(response.token == null, false);
     });
     test('failed login', () async {
       LoginResponseModel response = await DmartAPIS.login(

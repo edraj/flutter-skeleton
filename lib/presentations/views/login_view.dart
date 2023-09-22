@@ -1,5 +1,7 @@
 import 'package:dmart_android_flutter/domain/controllers/authentication_controller.dart';
+import 'package:dmart_android_flutter/domain/models/base/status.dart';
 import 'package:dmart_android_flutter/domain/models/login_model.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view.dart';
 import 'package:dmart_android_flutter/presentations/widgets/edit_field.dart';
 import 'package:dmart_android_flutter/utils/constants/language_change_svg.dart';
 import 'package:dmart_android_flutter/utils/constants/regex.dart';
@@ -27,13 +29,25 @@ class _LoginViewState extends State<LoginView> {
     return _shortnameController.isValidated && _passwordController.isValidated;
   }
 
-  void handleLogin() {
+  Future<void> handleLogin() async {
     if (isFormValid()) {
-      _controller.login(LoginRequestModel(
-        shortname: _shortnameController.text,
-        password: _passwordController.text,
-      ));
-    } else {}
+      LoginResponseModel result = await _controller.login(
+        _shortnameController.text,
+        _passwordController.text,
+      );
+      if (result.status == Status.success) {
+        _controller.saveToken(result.token!);
+        Get.to(const HomeView());
+      } else {
+        Get.snackbar(
+          "Invalid cred",
+          result.error?.message ?? "",
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          icon: const Icon(Icons.error),
+        );
+      }
+    }
   }
 
   @override

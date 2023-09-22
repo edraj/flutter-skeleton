@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
+import 'package:get/get.dart';
 import 'package:dmart_android_flutter/configs/dio.dart';
+import 'package:dmart_android_flutter/domain/controllers/authentication_controller.dart';
 import 'package:dmart_android_flutter/domain/models/base/action_reponse.dart';
 import 'package:dmart_android_flutter/domain/models/base/action_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/api_response.dart';
@@ -15,7 +18,10 @@ import 'package:dmart_android_flutter/domain/models/login_model.dart';
 import 'package:dmart_android_flutter/utils/enums/base/query_type.dart';
 import 'package:dmart_android_flutter/utils/enums/base/sort_type.dart';
 
+
 class DmartAPIS {
+  static final _controller = Get.put(AuthenticationController());
+
   static Map<String, dynamic> _headers = {"content-type": "application/json"};
 
   static Future<LoginResponseModel> login(
@@ -32,7 +38,6 @@ class DmartAPIS {
 
       return LoginResponseModel.fromJson(response.data);
     } on DioException catch (e) {
-      print(e.response?.data);
       if (e.response?.data != null) {
         dynamic error = e.response?.data;
         return LoginResponseModel.fromJson(error);
@@ -60,19 +65,19 @@ class DmartAPIS {
     }
   }
 
-  Future<ProfileResponse?> getProfile() async {
+  static Future<ProfileResponse?> getProfile() async {
     try {
       final response = await dio.get(
         '/user/profile',
-        options: Options(headers: _headers),
+        options: Options(headers: {..._headers, "Authorization": "Bearer ${_controller.getToken()}"}),
       );
 
       final profileResponse = ProfileResponse.fromJson(response.data);
       if (profileResponse.status == Status.success &&
           profileResponse.records.isNotEmpty) {
         final permissions = profileResponse.records[0].attributes.permissions;
-        // Store permissions in your preferred way (e.g., SharedPreferences)
-        // localStorage.setItem("permissions", jsonEncode(permissions));
+        final userController = Get.put(UserController());
+        userController.permissions = permissions;
       }
 
       return profileResponse;
