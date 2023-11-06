@@ -9,6 +9,7 @@ class EditField extends StatefulWidget {
   bool? obscureText = false;
   Widget? prefix;
   int? maxLength;
+  TextInputAction? textInputAction = TextInputAction.done;
   String? Function(String)? validationFunction;
 
   EditField({
@@ -18,6 +19,7 @@ class EditField extends StatefulWidget {
     this.obscureText,
     this.prefix,
     this.maxLength,
+    this.textInputAction,
     this.validationFunction,
   });
 
@@ -123,6 +125,7 @@ class _EditFieldState extends State<EditField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction: widget.textInputAction,
       maxLength: widget.maxLength,
       decoration: inputDecoration,
       style: textStyle,

@@ -1,0 +1,11 @@
+{
+  "en": "English",
+  "ar": "Arabic",
+  "login": "Login",
+  "shortname": "Shortname",
+  "password": "Password",
+  "shortname_is_required": "Shortname is required!",
+  "password_is_required": "Password is required!",
+  "wrong_format": "Wrong format!",
+  "change_language": "Change Language"
+}

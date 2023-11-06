@@ -1,0 +1,11 @@
+{
+  "en": "الانجليزية",
+  "ar": "العربية",
+  "login": "تسجيل الدخول",
+  "shortname": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "shortname_is_required": "اسم المستخدم مطلوب!",
+  "password_is_required": "كلمة المرور مطلوبة!",
+  "wrong_format": "تنسيق خاطئ!",
+  "change_language": "تغيير اللغة"
+}

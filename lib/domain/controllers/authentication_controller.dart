@@ -15,10 +15,6 @@ class AuthenticationController extends GetxController with CacheManager {
     removeToken();
   }
 
-  Future<LoginResponseModel> login(String shortname, String password) async {
-    return await DmartAPIS.login(shortname, password);
-  }
-
   void checkLoginStatus() {
     final token = getToken();
     if (token != null) {

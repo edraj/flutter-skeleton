@@ -25,14 +25,12 @@ class DmartAPIS {
   static Map<String, dynamic> _headers = {"content-type": "application/json"};
 
   static Future<LoginResponseModel> login(
-      String shortname, String password) async {
+      LoginRequestModel loginRequestModel) async {
+    print(loginRequestModel.toJson());
     try {
       final response = await dio.post(
         '/user/login',
-        data: {
-          'shortname': shortname,
-          'password': password,
-        },
+        data: loginRequestModel.toJson(),
         options: Options(headers: _headers),
       );
 
@@ -40,6 +38,7 @@ class DmartAPIS {
     } on DioException catch (e) {
       if (e.response?.data != null) {
         dynamic error = e.response?.data;
+        print(error);
         return LoginResponseModel.fromJson(error);
       }
       return LoginResponseModel.fromJson({

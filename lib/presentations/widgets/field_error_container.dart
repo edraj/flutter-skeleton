@@ -9,7 +9,6 @@ class FieldErrorContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.only(bottom: 8, left: 0),
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
