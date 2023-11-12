@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:dmart_android_flutter/presentations/widgets/field_error_container.dart';
 import 'package:dmart_android_flutter/utils/constants/colors.dart';
 import 'package:dmart_android_flutter/utils/helpers/advance_text_editing_controller.dart';
+import 'package:flutter/material.dart';
 
 class EditField extends StatefulWidget {
   AdvanceTextEditingController controller;
@@ -9,6 +9,7 @@ class EditField extends StatefulWidget {
   bool? obscureText = false;
   Widget? prefix;
   int? maxLength;
+  TextInputAction? textInputAction = TextInputAction.done;
   String? Function(String)? validationFunction;
 
   EditField({
@@ -18,6 +19,7 @@ class EditField extends StatefulWidget {
     this.obscureText,
     this.prefix,
     this.maxLength,
+    this.textInputAction,
     this.validationFunction,
   });
 
@@ -123,6 +125,7 @@ class _EditFieldState extends State<EditField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textInputAction: widget.textInputAction,
       maxLength: widget.maxLength,
       decoration: inputDecoration,
       style: textStyle,

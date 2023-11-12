@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 
 class FieldErrorContainer extends StatelessWidget {
   String message = "";
+
   FieldErrorContainer({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.only(bottom: 8,left: 0),
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -26,7 +26,8 @@ class FieldErrorContainer extends StatelessWidget {
             message,
             style: const TextStyle(
               fontSize: 13,
-              fontFamily: 'KanunAR', // Assuming you have imported the custom font
+              fontFamily: 'KanunAR',
+              // Assuming you have imported the custom font
               fontWeight: FontWeight.w500,
               color: Color(0xFFF55858),
             ),

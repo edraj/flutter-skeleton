@@ -12,10 +12,10 @@ class Description {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['en'] = en;
-    data['ar'] = ar;
-    data['kd'] = kd;
-    return data;
+    return {
+      'ar': ar,
+      'en': en,
+      'kd': kd,
+    };
   }
 }

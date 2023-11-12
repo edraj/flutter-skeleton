@@ -1,4 +1,3 @@
-
 class Record {
   String? resourceType;
   String? shortname;
@@ -6,11 +5,7 @@ class Record {
   String? subpath;
   dynamic attributes;
 
-  Record({this.resourceType,
-    this.shortname,
-    this.branchName,
-    this.subpath
-  });
+  Record({this.resourceType, this.shortname, this.branchName, this.subpath});
 
   Record.fromJson(Map<String, dynamic> json) {
     resourceType = json['resource_type'];

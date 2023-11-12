@@ -1,13 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:dmart_android_flutter/domain/controllers/authentication_controller.dart';
+import 'package:dmart_android_flutter/domain/models/base/status.dart';
 import 'package:dmart_android_flutter/domain/models/login_model.dart';
+import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view.dart';
 import 'package:dmart_android_flutter/presentations/widgets/edit_field.dart';
-import 'package:dmart_android_flutter/utils/constants/language_change_svg.dart';
-import 'package:get/get.dart';
+import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
+import 'package:dmart_android_flutter/presentations/widgets/theme_switch.dart';
 import 'package:dmart_android_flutter/utils/constants/regex.dart';
 import 'package:dmart_android_flutter/utils/helpers/advance_text_editing_controller.dart';
-import 'package:dmart_android_flutter/utils/constants/colors.dart';
+import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
+import 'package:dmart_android_flutter/utils/helpers/snackbars.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -17,130 +21,133 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final _controller = Get.put(AuthenticationController());
-
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  final _msisdnController = AdvanceTextEditingController();
+  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final _shortnameController = AdvanceTextEditingController();
   final _passwordController = AdvanceTextEditingController();
 
   bool isFormValid() {
     _key.currentState?.validate();
-    return _msisdnController.isValidated && _passwordController.isValidated;
+    return _shortnameController.isValidated && _passwordController.isValidated;
   }
 
-  void handleLogin() {
+  List<Color> backgroundColorsLight = [
+    const Color(0xB025282F),
+    const Color(0xFF25282F),
+  ];
+
+  List<Color> backgroundColorsDark = [
+    const Color(0xFF25282F),
+    const Color(0xB025282F),
+  ];
+
+  Future<void> handleLogin() async {
     if (isFormValid()) {
-      _controller.login(LoginRequestModel(
-        msisdn: _msisdnController.text,
-        password: _passwordController.text,
-      ));
-    } else {}
+      LoginResponseModel result = await DmartAPIS.login(
+        LoginRequestModel(
+          shortname: _shortnameController.text,
+          password: _passwordController.text,
+        ),
+      );
+      if (result.status == Status.success) {
+        await GetStorage().write("token", result.token);
+        Get.off(() => const HomeView());
+      } else {
+        Snackbars.error("Invalid credentials", result.error?.message ?? "");
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF57CDC6), // #57CDC6 in CSS
-            Color(0xFF3393E2), // #3393E2 in CSS
-          ],
-          stops: [0.0, 0.9062], // 0% and 90.62% in CSS
-        ),
-      ),
-      padding: const EdgeInsets.all(24.0),
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    print("theme is ${Theme.of(context).brightness}");
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: Theme.of(context).brightness == Brightness.dark
+                  ? backgroundColorsDark
+                  : backgroundColorsLight,
+              stops: const [0.0, 0.95],
+            ),
+          ),
+          padding: const EdgeInsets.all(24.0),
+          alignment: Alignment.center,
+          child: Column(
             children: [
-              languageChangeSVG(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const ThemeSwitch(),
+                  LanguageChange(triggerUpdate: () {
+                    setState(() {});
+                    _key = GlobalKey<FormState>();
+                  }),
+                ],
+              ),
+              // const SizedBox(height: 8),
+              Image.asset('assets/images/edraj_logo.png', scale: 1.5),
+              Text(
+                language["login"],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'KanunAR',
+                  fontWeight: FontWeight.w300,
+                  fontSize: 44.0,
+                ),
+              ),
+              const SizedBox(height: 64),
+              Form(
+                key: _key,
+                child: Expanded(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      EditField(
+                        controller: _shortnameController,
+                        palceholder: language["shortname"],
+                        maxLength: 10,
+                        textInputAction: TextInputAction.next,
+                        validationFunction: (value) {
+                          if (value.isEmpty) {
+                            return language["shortname_is_required"];
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      EditField(
+                        controller: _passwordController,
+                        palceholder: language["password"],
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        validationFunction: (value) {
+                          if (value.isEmpty) {
+                            return language["password_is_required"];
+                          } else if (!passwordREGEX.hasMatch(value)) {
+                            return language["wrong_format"];
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 32),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: handleLogin,
+                          child: Text(language["login"]),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 20),
-          SvgPicture.asset(
-            'assets/images/login/logo.svg',
-            semanticsLabel: 'Logo',
-            height: 63,
-            width: 208,
-          ),
-          const SizedBox(height: 32),
-          const Text(
-            "Login",
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'KanunAR',
-              fontWeight: FontWeight.w300,
-              fontSize: 22.0,
-            ),
-          ),
-          const SizedBox(height: 32),
-          Form(
-            key: _key,
-            child: Column(
-              children: [
-                EditField(
-                  controller: _msisdnController,
-                  palceholder: 'MSISDN',
-                  maxLength: 10,
-                  prefix: SizedBox(
-                    width: 64,
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                          right:
-                              BorderSide(color: secondaryColor ?? Colors.grey),
-                        )),
-                        padding: const EdgeInsets.only(right: 8),
-                        margin: const EdgeInsets.only(right: 8),
-                        child: const Text(
-                          "+964",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'KanunAR',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  validationFunction: (value) {
-                    if (value.isEmpty) {
-                      print("err MSISDN");
-                      return 'MSISDN is required.';
-                    } else if (!msisdnREGEX.hasMatch(value)) {
-                      return 'Wrong format.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                EditField(
-                  controller: _passwordController,
-                  palceholder: 'Password',
-                  obscureText: true,
-                  validationFunction: (value) {
-                    if (value.isEmpty) {
-                      print("err Password");
-                      return 'Password is required.';
-                    } else if (!passwordREGEX.hasMatch(value)) {
-                      return 'Wrong format.';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 32),
-          ElevatedButton(onPressed: handleLogin, child: const Text("Login"))
-        ],
+        ),
       ),
     );
   }

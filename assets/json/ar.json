@@ -1,0 +1,18 @@
+{
+  "en": "الانجليزية",
+  "ar": "العربية",
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل خروج",
+  "shortname": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "shortname_is_required": "اسم المستخدم مطلوب!",
+  "password_is_required": "كلمة المرور مطلوبة!",
+  "wrong_format": "تنسيق خاطئ!",
+  "change_language": "تغيير اللغة",
+  "home": "الرئيسية",
+  "profile": "حسابي",
+  "english_name": "الاسم الإنجليزي",
+  "arabic_name": "الاسم العربي",
+  "email": "البريد الإلكتروني",
+  "msisdn": "رقم الهاتف"
+}

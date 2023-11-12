@@ -1,17 +1,19 @@
-import 'package:dmart_android_flutter/domain/models/base/Error.dart';
 import 'package:dmart_android_flutter/domain/models/base/base_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
-import 'package:dmart_android_flutter/domain/models/base/records.dart';
+import 'package:dmart_android_flutter/domain/models/base/error.dart';
+import 'package:dmart_android_flutter/domain/models/base/record.dart';
+import 'package:dmart_android_flutter/domain/models/base/status.dart';
+import 'package:dmart_android_flutter/utils/enums/base/user_type.dart';
 
 class LoginRequestModel {
-  String msisdn;
+  String shortname;
   String password;
 
-  LoginRequestModel({required this.msisdn, required this.password});
+  LoginRequestModel({required this.shortname, required this.password});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['msisdn'] = msisdn;
+    data['shortname'] = shortname;
     data['password'] = password;
     return data;
   }
@@ -19,25 +21,25 @@ class LoginRequestModel {
 
 class LoginResponseModel extends BaseResponse {
   String? token;
-  String? type;
+  UserType? type;
   Displayname? displayname;
   ErrorModel? error;
 
-  LoginResponseModel({this.token});
+  LoginResponseModel({this.token, required super.status, super.records});
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    if(status=="failed"){
+    status = Status.values.byName(json['status']);
+    if (status == Status.failed) {
       error = ErrorModel.fromJson(json['error']);
       return;
     }
-
-    records = json['records'];
-    if (records != null && records!.isNotEmpty) {
+    if (json['records'] != null && json['records']!.isNotEmpty) {
+      records = [];
       Record? record = Record.fromJson(json['records'][0]);
+      records?.add(record);
       LoginAttributes? attribute = LoginAttributes.fromJson(record.attributes);
       token = attribute.accessToken;
-      type = attribute.type;
+      type = UserType.values.byName(attribute.type ?? 'web');
       displayname = attribute.displayname;
     }
   }
