@@ -1,31 +1,35 @@
 import 'package:dmart_android_flutter/domain/models/base/api_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/error.dart';
-import 'package:dmart_android_flutter/domain/models/base/response_record.dart';
+import 'package:dmart_android_flutter/domain/models/base/query/response_record.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
 import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
 
 class ActionResponse extends ApiResponse {
-  final List<_ActionResponseRecord> records;
+  List<_ActionResponseRecord>? records;
 
   ActionResponse({
     required Status status,
     ErrorModel? error,
-    required this.records,
+    this.records,
   }) : super(status: status, error: error);
 
   factory ActionResponse.fromJson(Map<String, dynamic> json) {
-    return ActionResponse(
+    ActionResponse actionResponse = ActionResponse(
       status: json['status'] == 'success' ? Status.success : Status.failed,
       error: json['error'] != null ? ErrorModel.fromJson(json['error']) : null,
-      records: (json['records'] as List<dynamic>)
-          .map((record) => _ActionResponseRecord.fromJson(record))
-          .toList(),
     );
+    if (json['records'] != null) {
+      actionResponse.records = (json['records'] as List<dynamic>)
+          .map((record) => _ActionResponseRecord.fromJson(record))
+          .toList();
+    }
+
+    return actionResponse;
   }
 }
 
 class _ActionResponseRecord extends ResponseRecord {
-  final _ActionResponseAttachments attachments;
+  late final _ActionResponseAttachments? attachments;
 
   _ActionResponseRecord({
     required ResourceType resourceType,
@@ -33,7 +37,6 @@ class _ActionResponseRecord extends ResponseRecord {
     required String shortname,
     required String subpath,
     required ResponseRecordAttributes attributes,
-    required this.attachments,
   }) : super(
           resourceType: resourceType,
           uuid: uuid,
@@ -43,16 +46,19 @@ class _ActionResponseRecord extends ResponseRecord {
         );
 
   factory _ActionResponseRecord.fromJson(Map<String, dynamic> json) {
-    return _ActionResponseRecord(
-      resourceType: json['resource_type'],
+    var _actionResponseRecord = _ActionResponseRecord(
+      resourceType: ResourceType.values.byName(json['resource_type']),
       uuid: json['uuid'],
       shortname: json['shortname'],
       subpath: json['subpath'],
-      attributes: json['attributes'],
-      attachments: _ActionResponseAttachments.fromJson(
-        Map<String, dynamic>.from(json['attachments']),
-      ),
+      attributes: ResponseRecordAttributes.fromJson(json['attributes']),
     );
+    if (json['attachments'] != null) {
+      _actionResponseRecord.attachments = _ActionResponseAttachments.fromJson(
+        Map<String, dynamic>.from(json['attachments']),
+      );
+    }
+    return _actionResponseRecord;
   }
 }
 

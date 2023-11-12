@@ -1,84 +1,91 @@
 import 'package:dmart_android_flutter/domain/models/base/api_response.dart';
+import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/domain/models/base/error.dart';
-import 'package:dmart_android_flutter/domain/models/base/permission.dart';
+import 'package:dmart_android_flutter/domain/models/base/profile/permission.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
-import 'package:dmart_android_flutter/domain/models/base/translation.dart';
 import 'package:dmart_android_flutter/utils/enums/base/language.dart';
+import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
 
 class ProfileResponse extends ApiResponse {
-  final List<_ProfileResponseRecord> records;
+  List<ProfileResponseRecord>? records;
 
   ProfileResponse({
     required Status status,
     ErrorModel? error,
-    required this.records,
+    this.records,
   }) : super(status: status, error: error);
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
-    return ProfileResponse(
+    ProfileResponse profileResponse = ProfileResponse(
       status: json['status'] == 'success' ? Status.success : Status.failed,
       error: json['error'] != null ? ErrorModel.fromJson(json['error']) : null,
-      records: (json['records'] as List<dynamic>)
-          .map((record) => _ProfileResponseRecord.fromJson(record))
-          .toList(),
     );
+    if (json['records'] != null) {
+      profileResponse.records = (json['records'] as List<dynamic>)
+          .map((record) => ProfileResponseRecord.fromJson(record))
+          .toList();
+    }
+    return profileResponse;
   }
 }
 
-class _ProfileResponseRecord extends ApiResponseRecord {
+class ProfileResponseRecord {
+  String shortname;
+  ResourceType resourceType;
   @override
-  final _ProfileResponseRecordAttributes attributes;
+  final ProfileResponseRecordAttributes attributes;
 
-  _ProfileResponseRecord({
-    required String resourceType,
-    required String shortname,
+  ProfileResponseRecord({
+    required this.resourceType,
+    required this.shortname,
     String? branchName,
     required String subpath,
     required this.attributes,
-  }) : super(
-          resourceType: resourceType,
-          subpath: subpath,
-          shortname: shortname,
-        );
+  });
 
-  factory _ProfileResponseRecord.fromJson(Map<String, dynamic> json) {
-    return _ProfileResponseRecord(
-      resourceType: json['resource_type'],
+  factory ProfileResponseRecord.fromJson(Map<String, dynamic> json) {
+    return ProfileResponseRecord(
+      resourceType: ResourceType.values.byName(json['resource_type']),
       shortname: json['shortname'],
       branchName: json['branch_name'],
       subpath: json['subpath'],
-      attributes: _ProfileResponseRecordAttributes.fromJson(
+      attributes: ProfileResponseRecordAttributes.fromJson(
         Map<String, dynamic>.from(json['attributes']),
       ),
     );
   }
 }
 
-class _ProfileResponseRecordAttributes {
-  final String email;
-  final Translation displayname;
+class ProfileResponseRecordAttributes {
+  final String? email;
+  final String? msisdn;
+  final Displayname displayname;
   final String type;
-  final Language language;
+  final Language? language;
   final bool isEmailVerified;
   final bool isMsisdnVerified;
   final bool forcePasswordChange;
   final Map<String, Permission> permissions;
+  final Map<String, dynamic>? payload;
 
-  _ProfileResponseRecordAttributes({
-    required this.email,
+  ProfileResponseRecordAttributes({
+    this.email,
+    this.msisdn,
     required this.displayname,
     required this.type,
-    required this.language,
+    this.language,
     required this.isEmailVerified,
     required this.isMsisdnVerified,
     required this.forcePasswordChange,
     required this.permissions,
+    this.payload,
   });
 
-  factory _ProfileResponseRecordAttributes.fromJson(Map<String, dynamic> json) {
-    return _ProfileResponseRecordAttributes(
+  factory ProfileResponseRecordAttributes.fromJson(Map<String, dynamic> json) {
+    return ProfileResponseRecordAttributes(
       email: json['email'],
-      displayname: Translation.fromJson(
+      msisdn: json['msisdn'],
+      displayname: Displayname.fromJson(
         Map<String, dynamic>.from(json['displayname']),
       ),
       type: json['type'],
@@ -86,6 +93,7 @@ class _ProfileResponseRecordAttributes {
       isEmailVerified: json['is_email_verified'],
       isMsisdnVerified: json['is_msisdn_verified'],
       forcePasswordChange: json['force_password_change'],
+      payload: json['payload']?['body'],
       permissions: Map<String, Permission>.from(
         json['permissions'].map(
           (key, value) => MapEntry(key, Permission.fromJson(value)),

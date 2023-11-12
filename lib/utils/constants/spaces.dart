@@ -1,0 +1,1 @@
+enum SPACES { management, applications }

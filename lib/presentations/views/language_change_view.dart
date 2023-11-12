@@ -1,4 +1,3 @@
-import 'package:dmart_android_flutter/domain/controllers/language_controller.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -2,10 +2,17 @@
   "en": "English",
   "ar": "Arabic",
   "login": "Login",
+  "logout": "Logout",
   "shortname": "Shortname",
   "password": "Password",
   "shortname_is_required": "Shortname is required!",
   "password_is_required": "Password is required!",
   "wrong_format": "Wrong format!",
-  "change_language": "Change Language"
+  "change_language": "Change Language",
+  "home": "Home",
+  "profile": "Profile",
+  "english_name": "English Name",
+  "arabic_name": "Arabic Name",
+  "email": "Email",
+  "msisdn": "MSISDN"
 }

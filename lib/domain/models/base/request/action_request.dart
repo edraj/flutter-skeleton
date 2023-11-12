@@ -4,7 +4,7 @@ import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
 class ActionRequest {
   final String spaceName;
   final RequestType requestType;
-  final List<_ActionRequestRecord> records;
+  final List<ActionRequestRecord> records;
 
   ActionRequest({
     required this.spaceName,
@@ -15,29 +15,30 @@ class ActionRequest {
   Map<String, dynamic> toJson() {
     return {
       'space_name': spaceName,
-      'request_type': requestType.toString(),
-      'records': records.map((record) => record.toJson()).toList(),
+      'request_type': requestType.name,
+      'records':
+          records.map((ActionRequestRecord record) => record.toJson()).toList(),
     };
   }
 }
 
-class _ActionRequestRecord {
+class ActionRequestRecord {
   final ResourceType resourceType;
-  final String shortname;
+  String shortname;
   final String subpath;
   final Map<String, dynamic> attributes;
   final Map<ResourceType, List<dynamic>>? attachments;
 
-  _ActionRequestRecord({
+  ActionRequestRecord({
     required this.resourceType,
-    required this.shortname,
+    this.shortname = 'auto',
     required this.subpath,
     required this.attributes,
     this.attachments,
   });
 
-  factory _ActionRequestRecord.fromJson(Map<String, dynamic> json) {
-    return _ActionRequestRecord(
+  factory ActionRequestRecord.fromJson(Map<String, dynamic> json) {
+    return ActionRequestRecord(
       resourceType: ResourceType.values.byName(json['resource_type']),
       shortname: json['shortname'],
       subpath: json['subpath'],
@@ -50,7 +51,7 @@ class _ActionRequestRecord {
 
   toJson() {
     return {
-      "resourceType": resourceType,
+      "resource_type": resourceType.name,
       "shortname": shortname,
       "subpath": subpath,
       "attributes": attributes

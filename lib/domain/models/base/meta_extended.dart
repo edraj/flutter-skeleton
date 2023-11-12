@@ -10,15 +10,15 @@ class MetaExtended {
   final bool? is_open;
 
   MetaExtended({
-    required this.email,
-    required this.msisdn,
-    required this.is_email_verified,
-    required this.is_msisdn_verified,
-    required this.force_password_change,
-    required this.password,
-    required this.workflow_shortname,
-    required this.state,
-    required this.is_open,
+    this.email,
+    this.msisdn,
+    this.is_email_verified,
+    this.is_msisdn_verified,
+    this.force_password_change,
+    this.password,
+    this.workflow_shortname,
+    this.state,
+    this.is_open,
   });
 
   factory MetaExtended.fromJson(Map<String, dynamic> json) {

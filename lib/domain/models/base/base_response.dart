@@ -1,4 +1,4 @@
-import 'package:dmart_android_flutter/domain/models/base/records.dart';
+import 'package:dmart_android_flutter/domain/models/base/record.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
 
 class BaseResponse {

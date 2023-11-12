@@ -3,43 +3,43 @@ import 'package:dmart_android_flutter/domain/models/base/payload.dart';
 import 'package:dmart_android_flutter/domain/models/base/translation.dart';
 
 class ResponseEntry extends MetaExtended {
-  final String uuid;
-  final String shortname;
-  final String subpath;
-  final bool is_active;
-  final Translation displayname;
-  final Translation description;
-  final Set<String> tags;
-  final String created_at;
-  final String updated_at;
-  final String owner_shortname;
+  final String? uuid;
+  final String? shortname;
+  final String? subpath;
+  final bool? is_active;
+  Translation? displayname;
+  Translation? description;
+  final Set<String>? tags;
+  final String? created_at;
+  final String? updated_at;
+  final String? owner_shortname;
   final Payload? payload;
   final Map<String, dynamic>? attachments;
-  final String workflow_shortname;
-  final String state;
+  final String? workflow_shortname;
+  final String? state;
 
   ResponseEntry({
-    required String email,
-    required String msisdn,
-    required bool is_email_verified,
-    required bool is_msisdn_verified,
-    required bool force_password_change,
-    required String password,
-    required bool is_open,
+    String? email,
+    String? msisdn,
+    bool? is_email_verified,
+    bool? is_msisdn_verified,
+    bool? force_password_change,
+    String? password,
+    bool? is_open,
     required this.uuid,
     required this.shortname,
     required this.subpath,
     required this.is_active,
-    required this.displayname,
-    required this.description,
-    required this.tags,
+    this.displayname,
+    this.description,
+    this.tags,
     required this.created_at,
     required this.updated_at,
     required this.owner_shortname,
     this.payload,
     this.attachments,
-    required this.workflow_shortname,
-    required this.state,
+    this.workflow_shortname,
+    this.state,
   }) : super(
           email: email,
           msisdn: msisdn,
@@ -53,7 +53,7 @@ class ResponseEntry extends MetaExtended {
         );
 
   factory ResponseEntry.fromJson(Map<String, dynamic> json) {
-    return ResponseEntry(
+    ResponseEntry responseEntry = ResponseEntry(
       email: json['email'],
       msisdn: json['msisdn'],
       is_email_verified: json['is_email_verified'],
@@ -67,12 +67,6 @@ class ResponseEntry extends MetaExtended {
       shortname: json['shortname'],
       subpath: json['subpath'],
       is_active: json['is_active'],
-      displayname: Translation.fromJson(
-        Map<String, dynamic>.from(json['displayname']),
-      ),
-      description: Translation.fromJson(
-        Map<String, dynamic>.from(json['description']),
-      ),
       tags: Set<String>.from(json['tags'] ?? []),
       created_at: json['created_at'],
       updated_at: json['updated_at'],
@@ -84,5 +78,18 @@ class ResponseEntry extends MetaExtended {
           ? Map<String, dynamic>.from(json['attachments'])
           : null,
     );
+
+    if (json['displayname'] != null) {
+      responseEntry.displayname = Translation.fromJson(
+        Map<String, dynamic>.from(json['displayname']),
+      );
+    }
+    if (json['description'] != null) {
+      responseEntry.description = Translation.fromJson(
+        Map<String, dynamic>.from(json['description']),
+      );
+    }
+
+    return responseEntry;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:dmart_android_flutter/domain/models/base/base_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/domain/models/base/error.dart';
-import 'package:dmart_android_flutter/domain/models/base/records.dart';
+import 'package:dmart_android_flutter/domain/models/base/record.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
 import 'package:dmart_android_flutter/utils/enums/base/user_type.dart';
 

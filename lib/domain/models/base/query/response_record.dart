@@ -58,7 +58,7 @@ class ResponseRecordAttributes {
         Map<String, dynamic>.from(json['displayname']),
       ),
       description: Translation.fromJson(
-        Map<String, dynamic>.from(json['description']),
+        Map<String, dynamic>.from(json['description'] ?? {}),
       ),
       tags: Set<String>.from(json['tags'] ?? []),
       created_at: json['created_at'],
