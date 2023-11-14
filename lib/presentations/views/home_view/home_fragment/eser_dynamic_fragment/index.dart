@@ -1,18 +1,18 @@
 import 'package:dmart_android_flutter/domain/controllers/eser_arabic/eser_arabic_controller.dart';
-import 'package:dmart_android_flutter/presentations/views/home_view_fragments/views/home_fragment/poetry_detail.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_dynamic_fragment/poetry_detail.dart';
 import 'package:dmart_android_flutter/presentations/widgets/list_loading_shimmer.dart';
 import 'package:dmart_android_flutter/utils/helpers/translator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeFragment extends StatefulWidget {
-  const HomeFragment({super.key});
+class EserDynamicFragment extends StatefulWidget {
+  const EserDynamicFragment({super.key});
 
   @override
-  State<HomeFragment> createState() => _HomeFragmentState();
+  State<EserDynamicFragment> createState() => _EserDynamicFragmentState();
 }
 
-class _HomeFragmentState extends State<HomeFragment> {
+class _EserDynamicFragmentState extends State<EserDynamicFragment> {
   final EserArabicController eserArabicController =
       Get.put(EserArabicController());
 
@@ -34,7 +34,7 @@ class _HomeFragmentState extends State<HomeFragment> {
       return RefreshIndicator(
         onRefresh: _pullRefresh,
         child: ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: eserArabicController.records.length,
           itemBuilder: (context, index) {
             String title =

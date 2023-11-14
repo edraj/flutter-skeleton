@@ -99,7 +99,7 @@ class _PoetryDetailState extends State<PoetryDetail> {
                                     .record.value!.attachments!['media'] !=
                                 null) {
                               return ListView.builder(
-                                physics: AlwaysScrollableScrollPhysics(),
+                                physics: const AlwaysScrollableScrollPhysics(),
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 itemCount: eserArabicDetailController

@@ -1,6 +1,7 @@
 import 'package:dmart_android_flutter/configs/dio.dart';
+import 'package:dmart_android_flutter/domain/controllers/eser_arabic/app_controller.dart';
 import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
-import 'package:dmart_android_flutter/presentations/views/home_view.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/index.dart';
 import 'package:dmart_android_flutter/presentations/views/login_view.dart';
 import 'package:dmart_android_flutter/utils/constants/spaces.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
@@ -22,10 +23,17 @@ class MainWidget extends StatefulWidget {
 }
 
 class _MainWidgetState extends State<MainWidget> {
+  AppController appController = Get.put(AppController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    GetStorage box = GetStorage();
-    return box.hasData("token")
+    appController.showGreeting(context);
+    return GetStorage().hasData("token")
         ? wrapper(const HomeView())
         : wrapper(const LoginView());
   }
@@ -35,8 +43,7 @@ void main() async {
   await GetStorage.init();
   await AppLocalizations.setLang();
   addInterceptors();
-  GetStorage box = GetStorage();
-  String? lang = box.read("lang");
+  String? lang = GetStorage().read("lang");
 
   PlatformDispatcher.instance.onError = (error, stack) {
     DmartAPIS.submit(SPACES.applications.name, 'log', 'logs', {

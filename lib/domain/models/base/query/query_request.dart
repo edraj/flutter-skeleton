@@ -3,7 +3,7 @@ import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
 import 'package:dmart_android_flutter/utils/enums/base/sort_type.dart';
 
 class QueryRequest {
-  QueryType type;
+  QueryType queryType;
   String spaceName;
   String subpath;
   String search;
@@ -23,7 +23,7 @@ class QueryRequest {
   int? offset;
 
   QueryRequest({
-    required this.type,
+    required this.queryType,
     required this.spaceName,
     required this.subpath,
     required this.search,
@@ -45,7 +45,7 @@ class QueryRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      'type': type.toString().split('.').last,
+      'type': queryType.toString().split('.').last,
       'space_name': spaceName,
       'subpath': subpath,
       'filter_types': filterTypes,

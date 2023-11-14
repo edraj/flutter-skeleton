@@ -20,6 +20,7 @@ class _SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
   bool _isLoading = true;
+  late LockCachingAudioSource _audioSource;
 
   @override
   void initState() {
@@ -40,8 +41,11 @@ class _SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
   }
 
   Future<void> _initializeAndPlay() async {
-    await _player.setUrl(widget.url,
-        headers: {"Authorization": "Bearer ${GetStorage().read("token")}"});
+    _audioSource = LockCachingAudioSource(
+      Uri.parse(widget.url),
+      headers: {"Authorization": "Bearer ${GetStorage().read("token")}"},
+    );
+    await _player.setAudioSource(_audioSource);
   }
 
   void _togglePlayPause() {
