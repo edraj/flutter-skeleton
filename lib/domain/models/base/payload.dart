@@ -5,7 +5,7 @@ class Payload {
   final ContentType content_type;
   final String? schema_shortname;
   final String? checksum;
-  final dynamic body; // Can be String or Map<String, dynamic>
+  final dynamic body;
   final String? last_validated;
   ValidationStatus? validation_status = null;
 

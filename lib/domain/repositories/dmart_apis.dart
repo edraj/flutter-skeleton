@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dmart_android_flutter/configs/dio.dart';
 import 'package:dmart_android_flutter/domain/models/base/api_response.dart';
+import 'package:dmart_android_flutter/domain/models/base/error.dart';
 import 'package:dmart_android_flutter/domain/models/base/get_payload_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/profile/profile_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/progress_ticket_request.dart';
@@ -25,7 +26,19 @@ class DmartAPIS {
     "content-type": "application/json"
   };
 
-  static Future<LoginResponseModel> login(
+  static ErrorModel _returnExceptionError(e) {
+    if (e.response?.data['error'] != null) {
+      return ErrorModel.fromJson(e.response?.data);
+    }
+    return ErrorModel(
+      type: 'unknown',
+      code: 0,
+      info: [],
+      message: e.message.toString(),
+    );
+  }
+
+  static Future<(LoginResponseModel?, ErrorModel?)> login(
       LoginRequestModel loginRequestModel) async {
     try {
       final response = await dio.post(
@@ -34,35 +47,29 @@ class DmartAPIS {
         options: Options(headers: _headers),
       );
 
-      return LoginResponseModel.fromJson(response.data);
+      return (LoginResponseModel.fromJson(response.data), null);
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        return LoginResponseModel.fromJson(e.response?.data);
-      }
-      return LoginResponseModel.fromJson({
-        "status": "failed",
-        "type": "UNKNOW",
-        "code": 666,
-        "message": "Unkonw error"
-      });
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<ApiResponse> logout() async {
+  static Future<(ApiResponse?, ErrorModel?)> logout() async {
     try {
       final response = await dio.post(
         '/user/logout',
-        options: Options(headers: _headers),
+        options: Options(headers: {
+          ..._headers,
+          "Authorization": "Bearer ${GetStorage().read("token")}"
+        }),
       );
 
-      return ApiResponse.fromJson(response.data);
-    } catch (e) {
-      // Handle the error here
-      rethrow;
+      return (ApiResponse.fromJson(response.data), null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<ProfileResponse?> getProfile() async {
+  static Future<(ProfileResponse?, ErrorModel?)> getProfile() async {
     try {
       final response = await dio.get(
         '/user/profile',
@@ -76,23 +83,24 @@ class DmartAPIS {
       if (profileResponse.status == Status.success &&
           profileResponse.records != null &&
           profileResponse.records!.isNotEmpty) {
-        return profileResponse;
+        return (profileResponse, null);
       }
-      return null;
+
+      return (
+        null,
+        ErrorModel(
+            type: 'unknown',
+            code: 0,
+            info: [profileResponse.error?.toJson() ?? {}],
+            message: "Unable to retrive the profile.")
+      );
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        return ProfileResponse.fromJson(e.response?.data);
-      }
-      return ProfileResponse.fromJson({
-        "status": "failed",
-        "type": "UNKNOW",
-        "code": 666,
-        "message": "Unkonw error"
-      });
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<ApiQueryResponse> query(QueryRequest query) async {
+  static Future<(ApiQueryResponse?, ErrorModel?)> managedQuery(
+      QueryRequest query) async {
     try {
       query.sortType = query.sortType ?? SortyType.ascending;
       query.sortBy = query.sortBy ?? 'created_at';
@@ -106,21 +114,32 @@ class DmartAPIS {
         }),
       );
 
-      return ApiQueryResponse.fromJson(response.data);
+      return (ApiQueryResponse.fromJson(response.data), null);
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        return ApiQueryResponse.fromJson(e.response?.data);
-      }
-      return ApiQueryResponse.fromJson({
-        "status": "failed",
-        "type": "UNKNOW",
-        "code": 666,
-        "message": "Unkonw error"
-      });
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<ActionResponse?> request(ActionRequest action) async {
+  // static Future<(ApiQueryResponse?, ErrorModel?)> publicQuery(
+  //     QueryRequest query) async {
+  //   try {
+  //     final response = await dio.post(
+  //       '/public/entry/${query.resourceType?.name}/${query.spaceName}/${query.subpath}/${query.shortname}',
+  //       data: query.toJson(),
+  //       options: Options(headers: {
+  //         ..._headers,
+  //         "Authorization": "Bearer ${GetStorage().read("token")}"
+  //       }),
+  //     );
+  //
+  //     return (ApiQueryResponse.fromJson(response.data), null);
+  //   } on DioException catch (e) {
+  //     return (null, _returnExceptionError(e));
+  //   }
+  // }
+
+  static Future<(ActionResponse?, ErrorModel?)> request(
+      ActionRequest action) async {
     try {
       final response = await dio.post(
         '/managed/request',
@@ -130,13 +149,13 @@ class DmartAPIS {
           "Authorization": "Bearer ${GetStorage().read("token")}"
         }),
       );
-      return ActionResponse.fromJson(response.data);
-    } on Exception catch (e) {
-      return null;
+      return (ActionResponse.fromJson(response.data), null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<ResponseEntry> retrieveEntry(
+  static Future<(ResponseEntry?, ErrorModel?)> retrieveEntry(
       RetrieveEntryRequest request) async {
     String? subpath = request.subpath;
     try {
@@ -149,15 +168,15 @@ class DmartAPIS {
             "Authorization": "Bearer ${GetStorage().read("token")}"
           }));
 
-      return ResponseEntry.fromJson(response.data);
-    } on Exception catch (e) {
-      rethrow;
+      return (ResponseEntry.fromJson(response.data), null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 
-  Future<ApiResponse> getSpaces() async {
-    return await query(QueryRequest(
-      type: QueryType.spaces,
+  Future<(ApiQueryResponse?, ErrorModel?)> getSpaces() async {
+    return await managedQuery(QueryRequest(
+      queryType: QueryType.spaces,
       spaceName: "management",
       subpath: "/",
       search: "",
@@ -173,13 +192,13 @@ class DmartAPIS {
       );
 
       return response.data;
-    } catch (e) {
-      // Handle the error here
-      rethrow;
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 
-  Future<ApiQueryResponse> progressTicket(ProgressTicketRequest request) async {
+  Future<(ApiQueryResponse?, ErrorModel?)> progressTicket(
+      ProgressTicketRequest request) async {
     try {
       final response = await dio.put(
         '/managed/progress-ticket/${request.spaceName}/${request.subpath}/${request.shortname}/${request.action}',
@@ -190,14 +209,13 @@ class DmartAPIS {
         options: Options(headers: _headers),
       );
 
-      return ApiQueryResponse.fromJson(response.data);
-    } catch (e) {
-      // Handle the error here
-      rethrow;
+      return (ApiQueryResponse.fromJson(response.data), null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 
-  static Future<Response> createAttachment({
+  static Future<(Response?, ErrorModel?)> createAttachment({
     required String shortname,
     required String entitySubpath,
     required File payloadFile,
@@ -246,23 +264,26 @@ class DmartAPIS {
       ..add(MapEntry('space_name', spaceName))
       ..add(MapEntry('entity_subpath', entitySubpath))
       ..add(MapEntry('entity_shortname', shortname));
+    try {
+      Response response = await dio.post(
+        '/managed/resource_with_payload',
+        data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+          headers: {
+            ..._headers,
+            "Authorization": "Bearer ${GetStorage().read("token")}"
+          },
+        ),
+      );
 
-    Response response = await dio.post(
-      '/managed/resource_with_payload',
-      data: formData,
-      options: Options(
-        contentType: 'multipart/form-data',
-        headers: {
-          ..._headers,
-          "Authorization": "Bearer ${GetStorage().read("token")}"
-        },
-      ),
-    );
-
-    return response;
+      return (response, null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
+    }
   }
 
-  static Future<ActionResponse?> submit(
+  static Future<(ActionResponse?, ErrorModel?)> submit(
       String spaceName,
       String schemaShortname,
       String subpath,
@@ -276,9 +297,9 @@ class DmartAPIS {
           "Authorization": "Bearer ${GetStorage().read("token")}"
         }),
       );
-      return ActionResponse.fromJson(response.data);
-    } on Exception catch (e) {
-      return null;
+      return (ActionResponse.fromJson(response.data), null);
+    } on DioException catch (e) {
+      return (null, _returnExceptionError(e));
     }
   }
 

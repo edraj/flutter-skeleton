@@ -19,4 +19,13 @@ class ErrorModel {
       info: json['info'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'code': code,
+      'message': message,
+      'info': info,
+    };
+  }
 }

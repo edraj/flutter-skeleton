@@ -3,7 +3,6 @@ import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
 import 'package:dmart_android_flutter/presentations/widgets/list_loading_shimmer.dart';
 import 'package:dmart_android_flutter/presentations/widgets/simple_audio_player.dart';
-import 'package:dmart_android_flutter/presentations/widgets/text_with_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +31,36 @@ class _PoetryDetailState extends State<PoetryDetail> {
     endIndent: 16,
   );
 
+  List<Widget> buildTextWidgets(Map<String, dynamic> map) {
+    List<Widget> widgets = [];
+    map.forEach((key, value) {
+      widgets.add(
+        RichText(
+          textAlign: TextAlign.start,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "$key: ",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              TextSpan(
+                text: value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+    return widgets;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +71,7 @@ class _PoetryDetailState extends State<PoetryDetail> {
           })
         ]),
         body: Obx(
-          () {
+              () {
             if (eserArabicDetailController.isLoading.value) {
               return const ListLoadingShimmer();
             }
@@ -61,29 +90,10 @@ class _PoetryDetailState extends State<PoetryDetail> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      TextWithIcon(
-                        text: eserArabicDetailController.poetry.value!.type,
-                        icon: Icons.category,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      ItemDivider,
-                      TextWithIcon(
-                        text: eserArabicDetailController.poetry.value!.makam,
-                        icon: Icons.list,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      ItemDivider,
-                      TextWithIcon(
-                        text: eserArabicDetailController.poetry.value!.bestekar,
-                        icon: Icons.upcoming_sharp,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      ItemDivider,
-                      TextWithIcon(
-                        text:
-                            eserArabicDetailController.poetry.value!.performer,
-                        icon: Icons.person,
-                        textDirection: TextDirection.rtl,
+                      ListView(
+                        shrinkWrap: true,
+                        children: buildTextWidgets(eserArabicDetailController
+                            .record.value?.payload?.body),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 32),
@@ -99,7 +109,7 @@ class _PoetryDetailState extends State<PoetryDetail> {
                                     .record.value!.attachments!['media'] !=
                                 null) {
                               return ListView.builder(
-                                physics: AlwaysScrollableScrollPhysics(),
+                                physics: const AlwaysScrollableScrollPhysics(),
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 itemCount: eserArabicDetailController
