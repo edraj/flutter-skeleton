@@ -1,9 +1,9 @@
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/domain/models/base/profile/permission.dart';
-import 'package:dmart_android_flutter/domain/models/base/profile/profile_response.dart';
-import 'package:dmart_android_flutter/domain/models/base/request/action_reponse.dart';
 import 'package:dmart_android_flutter/domain/models/base/request/action_request.dart';
+import 'package:dmart_android_flutter/domain/models/login_model.dart';
 import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/index.dart';
 import 'package:dmart_android_flutter/presentations/views/login_view.dart';
 import 'package:dmart_android_flutter/utils/enums/base/request_type.dart';
 import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
@@ -19,7 +19,21 @@ class UserController extends GetxController {
   Map<String, dynamic>? body = {};
   Map<String, Permission> permissions = {};
 
-  void cleanUp() {
+  Future<void> login(String shortname, String password) async {
+    LoginRequestModel loginRequestModel = LoginRequestModel(
+      shortname: shortname,
+      password: password,
+    );
+    var (response, error) = await DmartAPIS.login(loginRequestModel);
+    if (response != null) {
+      await GetStorage().write("token", response.token);
+      Get.off(() => const HomeView());
+    } else {
+      Snackbars.error("Invalid credentials", error?.message ?? "");
+    }
+  }
+
+  void _cleanUp() {
     shortname = "";
     displayname = Displayname();
     msisdn = "";
@@ -30,7 +44,7 @@ class UserController extends GetxController {
     update();
   }
 
-  void setupProfile(
+  void _setupProfile(
     String shortname,
     Displayname displayName,
     String? msisdn,
@@ -49,7 +63,7 @@ class UserController extends GetxController {
   }
 
   Future<void> getProfile() async {
-    ProfileResponse? profileResponse = await DmartAPIS.getProfile();
+    var (profileResponse, _) = await DmartAPIS.getProfile();
 
     if (profileResponse == null) {
       Get.off(() => const LoginView());
@@ -61,7 +75,7 @@ class UserController extends GetxController {
       return;
     }
 
-    setupProfile(
+    _setupProfile(
       profileResponse.records?[0].shortname ?? "",
       attributes.displayname,
       attributes.msisdn,
@@ -84,12 +98,12 @@ class UserController extends GetxController {
       requestType: RequestType.update,
       records: [actionRequestRecord],
     );
-    ActionResponse? result = await DmartAPIS.request(actionRequest);
+    var (result, error) = await DmartAPIS.request(actionRequest);
 
     if (result == null) {
       Snackbars.error(
         "Can't update the profile.",
-        result?.error?.message ?? "",
+        error?.message ?? "",
       );
     } else {
       Snackbars.success("Updated Successfully", "");
@@ -100,7 +114,7 @@ class UserController extends GetxController {
   Future<void> logout() async {
     await DmartAPIS.logout();
     await GetStorage().remove("token");
-    cleanUp();
+    _cleanUp();
     Get.off(() => const LoginView());
   }
 }

@@ -1,17 +1,12 @@
-import 'package:dmart_android_flutter/domain/models/base/status.dart';
-import 'package:dmart_android_flutter/domain/models/login_model.dart';
-import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
-import 'package:dmart_android_flutter/presentations/views/home_view.dart';
+import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
 import 'package:dmart_android_flutter/presentations/widgets/edit_field.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
 import 'package:dmart_android_flutter/presentations/widgets/theme_switch.dart';
 import 'package:dmart_android_flutter/utils/constants/regex.dart';
 import 'package:dmart_android_flutter/utils/helpers/advance_text_editing_controller.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
-import 'package:dmart_android_flutter/utils/helpers/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -21,6 +16,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  UserController userController = Get.put(UserController());
+
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _shortnameController = AdvanceTextEditingController();
   final _passwordController = AdvanceTextEditingController();
@@ -42,24 +39,15 @@ class _LoginViewState extends State<LoginView> {
 
   Future<void> handleLogin() async {
     if (isFormValid()) {
-      LoginResponseModel result = await DmartAPIS.login(
-        LoginRequestModel(
-          shortname: _shortnameController.text,
-          password: _passwordController.text,
-        ),
+      await userController.login(
+        _shortnameController.text,
+        _passwordController.text,
       );
-      if (result.status == Status.success) {
-        await GetStorage().write("token", result.token);
-        Get.off(() => const HomeView());
-      } else {
-        Snackbars.error("Invalid credentials", result.error?.message ?? "");
-      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("theme is ${Theme.of(context).brightness}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

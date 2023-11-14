@@ -16,6 +16,7 @@ class EserArabicDetailController extends GetxController {
   EserArabicDetailController(this.shortname);
 
   void loadRecord() async {
+    print("loadRecord");
     isLoading.value = true;
     update();
 
@@ -27,7 +28,11 @@ class EserArabicDetailController extends GetxController {
           retrieveJsonPayload: true,
           retrieveAttachments: true,
           resourceType: ResourceType.content);
-      ResponseEntry response = await DmartAPIS.retrieveEntry(request);
+      var (response, error) = await DmartAPIS.retrieveEntry(request);
+      if (response == null) {
+        Snackbars.error("Unable to fetch records!", error?.message ?? "");
+        return;
+      }
       poetry.value = EserArabic.fromJson(response.payload?.body);
       record.value = response;
     } on Exception catch (e) {

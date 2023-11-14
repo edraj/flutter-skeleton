@@ -1,6 +1,7 @@
 import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
-import 'package:dmart_android_flutter/presentations/views/home_view_fragments/views/home_fragment/home_fragment.dart';
-import 'package:dmart_android_flutter/presentations/views/home_view_fragments/views/profile_fragment.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_dynamic_fragment/index.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_fragment/index.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/profile_fragment/index.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
 import 'package:dmart_android_flutter/presentations/widgets/theme_switch.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
@@ -29,7 +30,8 @@ class _HomeViewState extends State<HomeView> {
 
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeFragment(),
+    EserFragment(),
+    EserDynamicFragment(),
     ProfileFragment(),
   ];
 
@@ -66,8 +68,13 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: language["home"],
+            icon: const Icon(Icons.dynamic_feed),
+            label: language["eser"],
+            backgroundColor: Colors.black,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.dynamic_form),
+            label: language["eser"],
             backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
