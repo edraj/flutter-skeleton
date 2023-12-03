@@ -6,71 +6,69 @@ class ResponseEntry extends MetaExtended {
   final String? uuid;
   final String? shortname;
   final String? subpath;
-  final bool? is_active;
+  final bool? isActive;
   Translation? displayname;
   Translation? description;
   final Set<String>? tags;
-  final String? created_at;
-  final String? updated_at;
-  final String? owner_shortname;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? ownerShortname;
   final Payload? payload;
   final Map<String, dynamic>? attachments;
-  final String? workflow_shortname;
-  final String? state;
 
   ResponseEntry({
     String? email,
     String? msisdn,
-    bool? is_email_verified,
-    bool? is_msisdn_verified,
-    bool? force_password_change,
+    bool? isEmailVerified,
+    bool? isMsisdnVerified,
+    bool? forcePasswordChange,
     String? password,
-    bool? is_open,
+    bool? isOpen,
+    String? workflowShortname,
+    String? state,
     required this.uuid,
     required this.shortname,
     required this.subpath,
-    required this.is_active,
+    required this.isActive,
     this.displayname,
     this.description,
     this.tags,
-    required this.created_at,
-    required this.updated_at,
-    required this.owner_shortname,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.ownerShortname,
     this.payload,
     this.attachments,
-    this.workflow_shortname,
-    this.state,
   }) : super(
-          email: email,
+    email: email,
           msisdn: msisdn,
-          is_email_verified: is_email_verified,
-          is_msisdn_verified: is_msisdn_verified,
-          force_password_change: force_password_change,
+          isEmailVerified: isEmailVerified,
+          isMsisdnVerified: isMsisdnVerified,
+          forcePasswordChange: forcePasswordChange,
           password: password,
-          workflow_shortname: workflow_shortname,
+          workflowShortname: workflowShortname,
           state: state,
-          is_open: is_open,
+          isOpen: isOpen,
         );
 
   factory ResponseEntry.fromJson(Map<String, dynamic> json) {
     ResponseEntry responseEntry = ResponseEntry(
       email: json['email'],
       msisdn: json['msisdn'],
-      is_email_verified: json['is_email_verified'],
-      is_msisdn_verified: json['is_msisdn_verified'],
-      force_password_change: json['force_password_change'],
+      isEmailVerified: json['is_email_verified'],
+      isMsisdnVerified: json['is_msisdn_verified'],
+      forcePasswordChange: json['force_password_change'],
       password: json['password'],
-      workflow_shortname: json['workflow_shortname'],
+      workflowShortname: json['workflow_shortname'],
       state: json['state'],
-      is_open: json['is_open'],
+      isOpen: json['is_open'],
       uuid: json['uuid'],
       shortname: json['shortname'],
       subpath: json['subpath'],
-      is_active: json['is_active'],
+      isActive: json['is_active'],
       tags: Set<String>.from(json['tags'] ?? []),
-      created_at: json['created_at'],
-      updated_at: json['updated_at'],
-      owner_shortname: json['owner_shortname'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      ownerShortname: json['owner_shortname'],
       payload: json['payload'] != null
           ? Payload.fromJson(Map<String, dynamic>.from(json['payload']))
           : null,

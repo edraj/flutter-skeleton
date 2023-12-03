@@ -20,8 +20,6 @@ class ServicesController extends GetxController {
   }
 
   void loadItems() async {
-    print("XPS loadItems");
-    print("XPS ${subpath.value}");
     isLoading.value = true;
     update();
 
@@ -37,13 +35,11 @@ class ServicesController extends GetxController {
     } else {
       if (response.status == Status.success) {
         records.value = response.records;
-        print("XPS ${records.value.length}");
       } else {
         Snackbars.error("Fetch Error!", "Unable to fetch home items.");
       }
     }
 
-    print("XPS END");
     isLoading.value = false;
     records.refresh();
     update();

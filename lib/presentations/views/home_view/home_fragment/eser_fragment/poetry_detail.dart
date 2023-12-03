@@ -26,7 +26,7 @@ class _PoetryDetailState extends State<PoetryDetail> {
         Get.put(EserArabicDetailController(widget.shortname));
   }
 
-  final Widget ItemDivider = const Divider(
+  final Widget itemDivider = const Divider(
     color: Colors.black,
     indent: 16,
     endIndent: 16,
@@ -39,6 +39,7 @@ class _PoetryDetailState extends State<PoetryDetail> {
         appBar: AppBar(actions: [
           LanguageChange(triggerUpdate: () {
             setState(() {});
+            return null;
           })
         ]),
         body: Obx(
@@ -66,19 +67,19 @@ class _PoetryDetailState extends State<PoetryDetail> {
                         icon: Icons.category,
                         textDirection: TextDirection.rtl,
                       ),
-                      ItemDivider,
+                      itemDivider,
                       TextWithIcon(
                         text: eserArabicDetailController.poetry.value!.makam,
                         icon: Icons.list,
                         textDirection: TextDirection.rtl,
                       ),
-                      ItemDivider,
+                      itemDivider,
                       TextWithIcon(
                         text: eserArabicDetailController.poetry.value!.bestekar,
                         icon: Icons.upcoming_sharp,
                         textDirection: TextDirection.rtl,
                       ),
-                      ItemDivider,
+                      itemDivider,
                       TextWithIcon(
                         text:
                             eserArabicDetailController.poetry.value!.performer,

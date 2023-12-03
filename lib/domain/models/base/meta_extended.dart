@@ -1,37 +1,37 @@
 class MetaExtended {
   final String? email;
   final String? msisdn;
-  final bool? is_email_verified;
-  final bool? is_msisdn_verified;
-  final bool? force_password_change;
+  final bool? isEmailVerified;
+  final bool? isMsisdnVerified;
+  final bool? forcePasswordChange;
   final String? password;
-  final String? workflow_shortname;
+  final String? workflowShortname;
   final String? state;
-  final bool? is_open;
+  final bool? isOpen;
 
   MetaExtended({
     this.email,
     this.msisdn,
-    this.is_email_verified,
-    this.is_msisdn_verified,
-    this.force_password_change,
+    this.isEmailVerified,
+    this.isMsisdnVerified,
+    this.forcePasswordChange,
     this.password,
-    this.workflow_shortname,
+    this.workflowShortname,
     this.state,
-    this.is_open,
+    this.isOpen,
   });
 
   factory MetaExtended.fromJson(Map<String, dynamic> json) {
     return MetaExtended(
       email: json['email'],
       msisdn: json['msisdn'],
-      is_email_verified: json['is_email_verified'],
-      is_msisdn_verified: json['is_msisdn_verified'],
-      force_password_change: json['force_password_change'],
+      isEmailVerified: json['is_email_verified'],
+      isMsisdnVerified: json['is_msisdn_verified'],
+      forcePasswordChange: json['force_password_change'],
       password: json['password'],
-      workflow_shortname: json['workflow_shortname'],
+      workflowShortname: json['workflow_shortname'],
       state: json['state'],
-      is_open: json['is_open'],
+      isOpen: json['is_open'],
     );
   }
 }

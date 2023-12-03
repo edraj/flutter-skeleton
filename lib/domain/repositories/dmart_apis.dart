@@ -10,8 +10,8 @@ import 'package:dmart_android_flutter/domain/models/base/profile/profile_respons
 import 'package:dmart_android_flutter/domain/models/base/progress_ticket_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/query/query_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/query/query_response.dart';
-import 'package:dmart_android_flutter/domain/models/base/request/action_reponse.dart';
 import 'package:dmart_android_flutter/domain/models/base/request/action_request.dart';
+import 'package:dmart_android_flutter/domain/models/base/request/action_response.dart';
 import 'package:dmart_android_flutter/domain/models/base/response_entry.dart';
 import 'package:dmart_android_flutter/domain/models/base/retrieve_entry_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
@@ -106,7 +106,7 @@ class DmartAPIS {
             type: 'unknown',
             code: 0,
             info: [profileResponse.error?.toJson() ?? {}],
-            message: "Unable to retrive the profile.")
+            message: "Unable to retrieve the profile.")
       );
     } on DioException catch (e) {
       return (null, _returnExceptionError(e));
@@ -302,7 +302,7 @@ class DmartAPIS {
 
   static String getAttachmentUrl(String resourceType, String spaceName,
       String subpath, String parentShortname, String shortname, String ext) {
-    return '$BASE_URL/managed/payload/$resourceType/$spaceName/${subpath.replaceAll(RegExp(r'/+$'), '')}/$parentShortname/$shortname.$ext'
+    return '$baseUrl/managed/payload/$resourceType/$spaceName/${subpath.replaceAll(RegExp(r'/+$'), '')}/$parentShortname/$shortname.$ext'
         .replaceAll('..', '.');
   }
 }

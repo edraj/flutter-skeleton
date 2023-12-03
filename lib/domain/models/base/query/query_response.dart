@@ -10,7 +10,7 @@ class ApiQueryResponse extends ApiResponse {
   ApiQueryResponse({
     required Status status,
     ErrorModel? error,
-    required List<ResponseRecord> this.records,
+    required this.records,
     required this.attributes,
   }) : super(status: status, error: error);
 

@@ -32,7 +32,6 @@ class ProfileResponse extends ApiResponse {
 class ProfileResponseRecord {
   String shortname;
   ResourceType resourceType;
-  @override
   final ProfileResponseRecordAttributes attributes;
 
   ProfileResponseRecord({

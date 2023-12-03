@@ -31,34 +31,34 @@ class ResponseRecord {
 }
 
 class ResponseRecordAttributes {
-  final bool is_active;
+  final bool isActive;
   Translation? displayname;
   Translation? description;
   final Set<String> tags;
-  final String created_at;
-  final String updated_at;
-  final String owner_shortname;
+  final String createdAt;
+  final String updatedAt;
+  final String ownerShortname;
   final Payload? payload;
 
   ResponseRecordAttributes({
-    required this.is_active,
+    required this.isActive,
     this.displayname,
     this.description,
     required this.tags,
-    required this.created_at,
-    required this.updated_at,
-    required this.owner_shortname,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.ownerShortname,
     this.payload,
   });
 
   factory ResponseRecordAttributes.fromJson(Map<String, dynamic> json) {
     ResponseRecordAttributes responseRecordAttributes =
         ResponseRecordAttributes(
-      is_active: json['is_active'],
+          isActive: json['is_active'],
       tags: Set<String>.from(json['tags'] ?? []),
-      created_at: json['created_at'],
-      updated_at: json['updated_at'],
-      owner_shortname: json['owner_shortname'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      ownerShortname: json['owner_shortname'],
       payload: json['payload'] != null
           ? Payload.fromJson(Map<String, dynamic>.from(json['payload']))
           : null,

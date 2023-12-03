@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
+import 'package:dmart_android_flutter/utils/helpers/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,7 +50,9 @@ class _ProfileFragmentState extends State<ProfileFragment> {
           isAvatarChanged = true;
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      Snackbars.error("Error", "Could not pick the image");
+    }
   }
 
   Widget _buildTextField({

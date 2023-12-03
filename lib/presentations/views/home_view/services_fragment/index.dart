@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class ServicesFragment extends StatefulWidget {
   final String subpath;
 
-  ServicesFragment({super.key, required this.subpath});
+  const ServicesFragment({super.key, required this.subpath});
 
   @override
   State<ServicesFragment> createState() => _ServicesFragmentState();
@@ -26,7 +26,6 @@ class _ServicesFragmentState extends State<ServicesFragment> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print("XPS ${servicesController.isLoading.value}");
       if (servicesController.isLoading.value) {
         return const ListLoadingShimmer();
       }
@@ -42,7 +41,6 @@ class _ServicesFragmentState extends State<ServicesFragment> {
         itemBuilder: (context, index) {
           String title =
               Translator.displayname(servicesController.records[index]);
-          print("XPS title $title");
           return Card(
             child: InkWell(
               onTap: () {

@@ -39,41 +39,39 @@ class _LanguageChangeViewState extends State<LanguageChangeView> {
         title: Text(language["change_language"] ?? ""),
       ),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  language["en"] ?? "",
-                ),
-                leading: Radio<String>(
-                  value: "en",
-                  groupValue: _language,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _language = value ?? "";
-                      changeLanguage();
-                    });
-                  },
-                ),
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                language["en"] ?? "",
               ),
-              ListTile(
-                title: Text(
-                  language["ar"] ?? "",
-                ),
-                leading: Radio<String>(
-                  value: "ar",
-                  groupValue: _language,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _language = value ?? "";
-                      changeLanguage();
-                    });
-                  },
-                ),
+              leading: Radio<String>(
+                value: "en",
+                groupValue: _language,
+                onChanged: (String? value) {
+                  setState(() {
+                    _language = value ?? "";
+                    changeLanguage();
+                  });
+                },
               ),
-            ],
-          ),
+            ),
+            ListTile(
+              title: Text(
+                language["ar"] ?? "",
+              ),
+              leading: Radio<String>(
+                value: "ar",
+                groupValue: _language,
+                onChanged: (String? value) {
+                  setState(() {
+                    _language = value ?? "";
+                    changeLanguage();
+                  });
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

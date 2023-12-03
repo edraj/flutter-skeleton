@@ -5,7 +5,7 @@ import 'package:dmart_android_flutter/domain/models/base/status.dart';
 import 'package:dmart_android_flutter/utils/enums/base/resource_type.dart';
 
 class ActionResponse extends ApiResponse {
-  List<_ActionResponseRecord>? records;
+  List<ActionResponseRecord>? records;
 
   ActionResponse({
     required Status status,
@@ -20,7 +20,7 @@ class ActionResponse extends ApiResponse {
     );
     if (json['records'] != null) {
       actionResponse.records = (json['records'] as List<dynamic>)
-          .map((record) => _ActionResponseRecord.fromJson(record))
+          .map((record) => ActionResponseRecord.fromJson(record))
           .toList();
     }
 
@@ -28,10 +28,10 @@ class ActionResponse extends ApiResponse {
   }
 }
 
-class _ActionResponseRecord extends ResponseRecord {
-  late final _ActionResponseAttachments? attachments;
+class ActionResponseRecord extends ResponseRecord {
+  late final ActionResponseAttachments? attachments;
 
-  _ActionResponseRecord({
+  ActionResponseRecord({
     required ResourceType resourceType,
     required String uuid,
     required String shortname,
@@ -45,8 +45,8 @@ class _ActionResponseRecord extends ResponseRecord {
           attributes: attributes,
         );
 
-  factory _ActionResponseRecord.fromJson(Map<String, dynamic> json) {
-    var _actionResponseRecord = _ActionResponseRecord(
+  factory ActionResponseRecord.fromJson(Map<String, dynamic> json) {
+    var actionResponseRecord = ActionResponseRecord(
       resourceType: ResourceType.values.byName(json['resource_type']),
       uuid: json['uuid'],
       shortname: json['shortname'],
@@ -54,30 +54,30 @@ class _ActionResponseRecord extends ResponseRecord {
       attributes: ResponseRecordAttributes.fromJson(json['attributes']),
     );
     if (json['attachments'] != null) {
-      _actionResponseRecord.attachments = _ActionResponseAttachments.fromJson(
+      actionResponseRecord.attachments = ActionResponseAttachments.fromJson(
         Map<String, dynamic>.from(json['attachments']),
       );
     }
-    return _actionResponseRecord;
+    return actionResponseRecord;
   }
 }
 
-class _ActionResponseAttachments {
-  final List<_ActionResponseRecord> media;
-  final List<_ActionResponseRecord> json;
+class ActionResponseAttachments {
+  final List<ActionResponseRecord> media;
+  final List<ActionResponseRecord> json;
 
-  _ActionResponseAttachments({
+  ActionResponseAttachments({
     required this.media,
     required this.json,
   });
 
-  factory _ActionResponseAttachments.fromJson(Map<String, dynamic> json) {
-    return _ActionResponseAttachments(
+  factory ActionResponseAttachments.fromJson(Map<String, dynamic> json) {
+    return ActionResponseAttachments(
       media: (json['media'] as List<dynamic>)
-          .map((mediaRecord) => _ActionResponseRecord.fromJson(mediaRecord))
+          .map((mediaRecord) => ActionResponseRecord.fromJson(mediaRecord))
           .toList(),
       json: (json['json'] as List<dynamic>)
-          .map((jsonRecord) => _ActionResponseRecord.fromJson(jsonRecord))
+          .map((jsonRecord) => ActionResponseRecord.fromJson(jsonRecord))
           .toList(),
     );
   }

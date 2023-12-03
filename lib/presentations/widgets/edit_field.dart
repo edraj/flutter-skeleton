@@ -3,14 +3,15 @@ import 'package:dmart_android_flutter/utils/constants/colors.dart';
 import 'package:dmart_android_flutter/utils/helpers/advance_text_editing_controller.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class EditField extends StatefulWidget {
-  AdvanceTextEditingController controller;
-  String palceholder;
-  bool? obscureText = false;
-  Widget? prefix;
-  int? maxLength;
-  TextInputAction? textInputAction = TextInputAction.done;
-  String? Function(String)? validationFunction;
+  final AdvanceTextEditingController controller;
+  final String palceholder;
+  bool? obscureText;
+  final Widget? prefix;
+  final int? maxLength;
+  final TextInputAction? textInputAction;
+  final String? Function(String)? validationFunction;
 
   EditField({
     super.key,
@@ -19,7 +20,7 @@ class EditField extends StatefulWidget {
     this.obscureText,
     this.prefix,
     this.maxLength,
-    this.textInputAction,
+    this.textInputAction = TextInputAction.done,
     this.validationFunction,
   });
 

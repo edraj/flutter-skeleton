@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 Future<void> showBasicDialog(
     BuildContext context, String title, String message) async {
-  print("shozing diqlog");
   showDialog(
     context: context,
     barrierDismissible: false, // user must tap button!

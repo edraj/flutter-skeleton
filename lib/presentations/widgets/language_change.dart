@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LanguageChange extends StatefulWidget {
-  Void? Function()? triggerUpdate;
+  final Void? Function()? triggerUpdate;
 
-  LanguageChange({
+  const LanguageChange({
     super.key,
     required this.triggerUpdate,
   });

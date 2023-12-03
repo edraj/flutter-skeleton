@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 class FieldErrorContainer extends StatelessWidget {
-  String message = "";
+  final String message;
 
-  FieldErrorContainer({super.key, required this.message});
+  const FieldErrorContainer({super.key, this.message = ""});
 
   @override
   Widget build(BuildContext context) {

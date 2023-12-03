@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:dmart_android_flutter/presentations/views/login_view.dart';
 import 'package:dmart_android_flutter/utils/helpers/snackbars.dart';
-import 'package:get/get.dart' as GetX;
+import 'package:get/get.dart' as get_x;
 import 'package:get_storage/get_storage.dart';
 
-const BASE_URL = 'https://api.dmart.cc';
+const baseUrl = 'https://api.dmart.cc';
 
 final options = BaseOptions(
-  baseUrl: BASE_URL,
+  baseUrl: baseUrl,
   connectTimeout: const Duration(seconds: 30),
   receiveTimeout: const Duration(seconds: 30),
 );
@@ -28,13 +28,13 @@ void addInterceptors() {
     onResponse: (Response response, ResponseInterceptorHandler handler) {
       return handler.next(response);
     },
-    onError: (DioError e, ErrorInterceptorHandler handler) {
+    onError: (DioException e, ErrorInterceptorHandler handler) {
       if (e.response?.statusCode == 401 &&
           e.response?.data["error"]["type"] == "jwtauth") {
         Snackbars.warning("Session Expired", "Please login again.",
             suppress: true);
         GetStorage().remove("token");
-        GetX.Get.off(() => const LoginView());
+        get_x.Get.off(() => const LoginView());
       }
       return handler.next(e);
     },

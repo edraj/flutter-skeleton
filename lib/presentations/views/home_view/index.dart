@@ -80,6 +80,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 LanguageChange(triggerUpdate: () {
                   setState(() {});
+                  return null;
                 }),
               ],
             ),

@@ -11,10 +11,10 @@ class SimpleAudioPlayer extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SimpleAudioPlayerState createState() => _SimpleAudioPlayerState();
+  SimpleAudioPlayerState createState() => SimpleAudioPlayerState();
 }
 
-class _SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
+class SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
   late AudioPlayer _player;
   bool _isPlaying = false;
   Duration _duration = Duration.zero;

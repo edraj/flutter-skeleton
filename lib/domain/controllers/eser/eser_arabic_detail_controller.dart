@@ -17,7 +17,6 @@ class EserArabicDetailController extends GetxController {
   EserArabicDetailController(this.shortname);
 
   void loadRecord() async {
-    print("loadRecord");
     isLoading.value = true;
     update();
 
@@ -36,7 +35,7 @@ class EserArabicDetailController extends GetxController {
       }
       poetry.value = EserArabic.fromJson(response.payload?.body);
       record.value = response;
-    } on Exception catch (e) {
+    } on Exception {
       Snackbars.error("Fetch Error!", "Unable to fetch home items.");
     }
 

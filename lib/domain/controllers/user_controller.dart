@@ -66,11 +66,11 @@ class UserController extends GetxController {
     Map<String, Permission> userPermissions,
   ) {
     this.shortname = shortname;
-    this.displayname = displayName;
+    displayname = displayName;
     this.msisdn = msisdn;
     this.email = email;
-    this.body = profileBody;
-    this.permissions = userPermissions;
+    body = profileBody;
+    permissions = userPermissions;
 
     update();
   }

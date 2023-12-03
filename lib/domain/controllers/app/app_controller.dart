@@ -24,8 +24,8 @@ class AppController extends GetxController {
       return;
     }
     GetStorage box = GetStorage();
-    if (box.read("greeting") != response.updated_at) {
-      box.write("greeting", response.updated_at);
+    if (box.read("greeting") != response.updatedAt) {
+      box.write("greeting", response.updatedAt);
       Map<String, dynamic> body = response.payload?.body;
       await showBasicDialog(
         context,
