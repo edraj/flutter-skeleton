@@ -1,7 +1,10 @@
+import 'package:dmart_android_flutter/domain/controllers/mobile_demo/data.dart';
+import 'package:dmart_android_flutter/domain/controllers/mobile_demo/services_controller.dart';
 import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_dynamic_fragment/index.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_fragment/index.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/profile_fragment/index.dart';
+import 'package:dmart_android_flutter/presentations/views/home_view/services_fragment/index.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
 import 'package:dmart_android_flutter/presentations/widgets/theme_switch.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
@@ -16,6 +19,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  ServicesController servicesController = Get.put(ServicesController.init());
   UserController userController = Get.put(UserController());
 
   Future<void> setupHome() async {
@@ -28,11 +32,20 @@ class _HomeViewState extends State<HomeView> {
     setupHome();
   }
 
+  String appBarTitle = "";
+
+  void setAppBarTitle(String title) {
+    setState(() {
+      appBarTitle = title;
+    });
+  }
+
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    EserFragment(),
-    EserDynamicFragment(),
-    ProfileFragment(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const EserFragment(),
+    const EserDynamicFragment(),
+    ServicesFragment(subpath: MobileDemoSubpaths.services.name),
+    const ProfileFragment(),
   ];
 
   void _onItemTapped(int index) {
@@ -45,6 +58,17 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Obx(() {
+          return servicesController.subpath.value.contains('/')
+              ? InkWell(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.arrow_back,
+                  ),
+                )
+              : Container();
+        }),
+        title: Text(appBarTitle),
         actions: [
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
@@ -75,6 +99,11 @@ class _HomeViewState extends State<HomeView> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.dynamic_form),
             label: language["eser"],
+            backgroundColor: Colors.black,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.shopping_cart),
+            label: language["services"],
             backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(

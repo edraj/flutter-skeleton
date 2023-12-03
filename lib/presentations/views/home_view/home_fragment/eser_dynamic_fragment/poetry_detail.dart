@@ -1,7 +1,7 @@
-import 'package:dmart_android_flutter/domain/controllers/eser_arabic/eser_arabic_detail_controller.dart';
+import 'package:dmart_android_flutter/domain/controllers/eser/eser_arabic_detail_controller.dart';
 import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
-import 'package:dmart_android_flutter/presentations/widgets/list_loading_shimmer.dart';
+import 'package:dmart_android_flutter/presentations/widgets/shimmer/list_loading_shimmer.dart';
 import 'package:dmart_android_flutter/presentations/widgets/simple_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,11 +75,9 @@ class _PoetryDetailState extends State<PoetryDetail> {
             if (eserArabicDetailController.isLoading.value) {
               return const ListLoadingShimmer();
             }
-
             if (eserArabicDetailController.poetry.value == null) {
               return const Text("XXXX");
             }
-
             return Container(
               constraints: const BoxConstraints(minHeight: 200),
               padding: const EdgeInsets.all(16),

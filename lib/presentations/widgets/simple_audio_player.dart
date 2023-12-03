@@ -1,4 +1,4 @@
-import 'package:dmart_android_flutter/presentations/widgets/item_loading_shimmer.dart';
+import 'package:dmart_android_flutter/presentations/widgets/shimmer/item_loading_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:just_audio/just_audio.dart';
@@ -81,7 +81,7 @@ class _SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const ItemLoadingShimmer() // Show loading widget when audio is loading
+        ? const ItemLoadingShimmer()
         : Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

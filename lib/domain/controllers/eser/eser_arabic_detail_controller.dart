@@ -1,3 +1,4 @@
+import 'package:dmart_android_flutter/domain/controllers/eser/data.dart';
 import 'package:dmart_android_flutter/domain/models/base/response_entry.dart';
 import 'package:dmart_android_flutter/domain/models/base/retrieve_entry_request.dart';
 import 'package:dmart_android_flutter/domain/models/easer_arabic.dart';
@@ -22,8 +23,8 @@ class EserArabicDetailController extends GetxController {
 
     try {
       RetrieveEntryRequest request = RetrieveEntryRequest(
-          spaceName: "eser",
-          subpath: "arabic",
+          spaceName: space,
+          subpath: EserSubpaths.arabic.name,
           shortname: shortname,
           retrieveJsonPayload: true,
           retrieveAttachments: true,

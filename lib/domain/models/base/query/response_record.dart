@@ -32,8 +32,8 @@ class ResponseRecord {
 
 class ResponseRecordAttributes {
   final bool is_active;
-  final Translation displayname;
-  final Translation description;
+  Translation? displayname;
+  Translation? description;
   final Set<String> tags;
   final String created_at;
   final String updated_at;
@@ -42,8 +42,8 @@ class ResponseRecordAttributes {
 
   ResponseRecordAttributes({
     required this.is_active,
-    required this.displayname,
-    required this.description,
+    this.displayname,
+    this.description,
     required this.tags,
     required this.created_at,
     required this.updated_at,
@@ -52,14 +52,9 @@ class ResponseRecordAttributes {
   });
 
   factory ResponseRecordAttributes.fromJson(Map<String, dynamic> json) {
-    return ResponseRecordAttributes(
+    ResponseRecordAttributes responseRecordAttributes =
+        ResponseRecordAttributes(
       is_active: json['is_active'],
-      displayname: Translation.fromJson(
-        Map<String, dynamic>.from(json['displayname']),
-      ),
-      description: Translation.fromJson(
-        Map<String, dynamic>.from(json['description'] ?? {}),
-      ),
       tags: Set<String>.from(json['tags'] ?? []),
       created_at: json['created_at'],
       updated_at: json['updated_at'],
@@ -68,5 +63,19 @@ class ResponseRecordAttributes {
           ? Payload.fromJson(Map<String, dynamic>.from(json['payload']))
           : null,
     );
+
+    if (json['displayname'] != null) {
+      responseRecordAttributes.displayname = Translation.fromJson(
+        Map<String, dynamic>.from(json['displayname']),
+      );
+    }
+
+    if (json['description'] != null) {
+      responseRecordAttributes.description = Translation.fromJson(
+        Map<String, dynamic>.from(json['description'] ?? {}),
+      );
+    }
+
+    return responseRecordAttributes;
   }
 }

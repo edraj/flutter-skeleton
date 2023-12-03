@@ -1,3 +1,4 @@
+import 'package:dmart_android_flutter/domain/controllers/eser/data.dart';
 import 'package:dmart_android_flutter/domain/models/base/query/query_request.dart';
 import 'package:dmart_android_flutter/domain/models/base/query/response_record.dart';
 import 'package:dmart_android_flutter/domain/models/base/status.dart';
@@ -8,7 +9,7 @@ import 'package:dmart_android_flutter/utils/helpers/snackbars.dart';
 import 'package:get/get.dart';
 
 class EserArabicController extends GetxController {
-  late RxList<ResponseRecord> records = <ResponseRecord>[].obs;
+  RxList<ResponseRecord> records = <ResponseRecord>[].obs;
   Rx<bool> isLoading = true.obs;
 
   void loadItems() async {
@@ -16,24 +17,23 @@ class EserArabicController extends GetxController {
     update();
 
     QueryRequest query = QueryRequest(
-      spaceName: "eser",
-      subpath: "arabic",
+      spaceName: space,
+      subpath: EserSubpaths.arabic.name,
       queryType: QueryType.search,
       search: '',
       exactSubpath: true,
       sortBy: "created_at",
       sortType: SortyType.ascending,
     );
-    var (response, error) = await DmartAPIS.managedQuery(query);
+    var (response, error) = await DmartAPIS.query(query);
     if (response == null) {
       Snackbars.error("Unable to fetch record", error?.message ?? "");
-      return;
-    }
-
-    if (response.status == Status.success) {
-      records.value = response.records;
     } else {
-      Snackbars.error("Fetch Error!", "Unable to fetch home items.");
+      if (response.status == Status.success) {
+        records.value = response.records;
+      } else {
+        Snackbars.error("Fetch Error!", "Unable to fetch home items.");
+      }
     }
 
     isLoading.value = false;

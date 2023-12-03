@@ -142,14 +142,14 @@ class _ProfileFragmentState extends State<ProfileFragment> {
               label: language['password'],
               readOnly: !_isEditing,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: userController.logout,
-              icon: Icon(Icons.logout), // The logout icon
+              icon: const Icon(Icons.logout), // The logout icon
               label: Text(language["logout"]), // The text 'Logout'
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Red background color
-              ),
+                  backgroundColor: Colors.red, //
+                  textStyle: Theme.of(context).textTheme.bodyLarge),
             )
           ],
         ),

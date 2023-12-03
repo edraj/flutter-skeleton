@@ -1,3 +1,4 @@
+import 'package:dmart_android_flutter/utils/constants/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,10 +11,13 @@ class ThemeSwitch extends StatefulWidget {
 
 class _ThemeSwitchState extends State<ThemeSwitch> {
   void switchTheme() {
-    Get.changeTheme(
-      Get.isDarkMode ? ThemeData.light() : ThemeData.dark(),
-    );
-    setState(() {});
+    setState(() {
+      Get.changeTheme(
+        Get.isDarkMode
+            ? ThemeManager.lightThemeData
+            : ThemeManager.darkThemeData,
+      );
+    });
   }
 
   @override
@@ -21,7 +25,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     return InkWell(
       onTap: () => switchTheme(),
       child: Icon(
-        Get.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+        Get.isDarkMode ? Icons.light_mode : Icons.dark_mode,
         color: Colors.white,
         size: 32,
       ),

@@ -1,4 +1,5 @@
 import 'package:dmart_android_flutter/domain/controllers/user_controller.dart';
+import 'package:dmart_android_flutter/presentations/views/register_view.dart';
 import 'package:dmart_android_flutter/presentations/widgets/edit_field.dart';
 import 'package:dmart_android_flutter/presentations/widgets/language_change.dart';
 import 'package:dmart_android_flutter/presentations/widgets/theme_switch.dart';
@@ -50,15 +51,15 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: Theme.of(context).brightness == Brightness.dark
-                  ? backgroundColorsDark
-                  : backgroundColorsLight,
+              colors:
+                  Get.isDarkMode ? backgroundColorsDark : backgroundColorsLight,
               stops: const [0.0, 0.95],
             ),
           ),
@@ -73,6 +74,7 @@ class _LoginViewState extends State<LoginView> {
                   LanguageChange(triggerUpdate: () {
                     setState(() {});
                     _key = GlobalKey<FormState>();
+                    return null;
                   }),
                 ],
               ),
@@ -82,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                 language["login"],
                 style: const TextStyle(
                   color: Colors.white,
-                  fontFamily: 'KanunAR',
+                  fontFamily: 'IBMPlexSansArabic',
                   fontWeight: FontWeight.w300,
                   fontSize: 44.0,
                 ),
@@ -123,16 +125,27 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       const SizedBox(height: 32),
                       SizedBox(
-                        width: double.infinity,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         child: ElevatedButton(
                           onPressed: handleLogin,
-                          child: Text(language["login"]),
+                          child: Text(language["login"],
+                              style: Theme.of(context).textTheme.bodyLarge),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => const RegisterView());
+                  },
+                  child: Text(language["register"],
+                      style: Theme.of(context).textTheme.bodyLarge),
+                ),
+              )
             ],
           ),
         ),

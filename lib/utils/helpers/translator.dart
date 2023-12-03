@@ -6,9 +6,9 @@ class Translator {
     String fallback = record.shortname;
     switch (Get.locale?.languageCode) {
       case 'en':
-        return record.attributes.displayname.en ?? fallback;
+        return record.attributes.displayname?.en ?? fallback;
       case 'ar':
-        return record.attributes.displayname.ar ?? fallback;
+        return record.attributes.displayname?.ar ?? fallback;
       default:
         return fallback;
     }
@@ -18,9 +18,9 @@ class Translator {
     String fallback = record.shortname;
     switch (Get.locale?.languageCode) {
       case 'en':
-        return record.attributes.description.en ?? fallback;
+        return record.attributes.description?.en ?? fallback;
       case 'ar':
-        return record.attributes.description.ar ?? fallback;
+        return record.attributes.description?.ar ?? fallback;
       default:
         return fallback;
     }

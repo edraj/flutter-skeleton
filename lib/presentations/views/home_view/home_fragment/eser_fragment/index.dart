@@ -1,6 +1,6 @@
-import 'package:dmart_android_flutter/domain/controllers/eser_arabic/eser_arabic_controller.dart';
+import 'package:dmart_android_flutter/domain/controllers/eser/eser_arabic_controller.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/home_fragment/eser_fragment/poetry_detail.dart';
-import 'package:dmart_android_flutter/presentations/widgets/list_loading_shimmer.dart';
+import 'package:dmart_android_flutter/presentations/widgets/shimmer/list_loading_shimmer.dart';
 import 'package:dmart_android_flutter/utils/helpers/translator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +34,7 @@ class _EserFragmentState extends State<EserFragment> {
       return RefreshIndicator(
         onRefresh: _pullRefresh,
         child: ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: eserArabicController.records.length,
           itemBuilder: (context, index) {
             String title =

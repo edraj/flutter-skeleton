@@ -1,4 +1,4 @@
-import 'package:dmart_android_flutter/presentations/widgets/placeholders.dart';
+import 'package:dmart_android_flutter/presentations/widgets/shimmer/placeholders.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

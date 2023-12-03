@@ -36,7 +36,7 @@ class _EditFieldState extends State<EditField> {
 
   final TextStyle textStyle = const TextStyle(
     color: Colors.black,
-    fontFamily: 'KanunAR',
+    fontFamily: 'IBMPlexSansArabic',
     fontWeight: FontWeight.w500,
     fontSize: 15.0,
   );
@@ -60,7 +60,7 @@ class _EditFieldState extends State<EditField> {
 
     TextStyle textStyle = TextStyle(
       color: secondaryColor ?? Colors.grey,
-      fontFamily: 'KanunAR',
+      fontFamily: 'IBMPlexSansArabic',
       fontWeight: FontWeight.w500,
       fontSize: 15.0,
     );

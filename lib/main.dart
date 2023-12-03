@@ -1,19 +1,16 @@
 import 'package:dmart_android_flutter/configs/dio.dart';
-import 'package:dmart_android_flutter/domain/controllers/eser_arabic/app_controller.dart';
+import 'package:dmart_android_flutter/domain/controllers/app/app_controller.dart';
 import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/index.dart';
 import 'package:dmart_android_flutter/presentations/views/login_view.dart';
-import 'package:dmart_android_flutter/utils/constants/spaces.dart';
+import 'package:dmart_android_flutter/utils/constants/themes.dart';
 import 'package:dmart_android_flutter/utils/helpers/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-Widget wrapper(Widget child) {
-  return SafeArea(child: child);
-}
 
 class MainWidget extends StatefulWidget {
   const MainWidget({super.key});
@@ -28,14 +25,18 @@ class _MainWidgetState extends State<MainWidget> {
   @override
   void initState() {
     super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      appController.showGreeting(context);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    appController.showGreeting(context);
-    return GetStorage().hasData("token")
-        ? wrapper(const HomeView())
-        : wrapper(const LoginView());
+    return SafeArea(
+      child:
+          GetStorage().hasData("token") ? const HomeView() : const LoginView(),
+    );
   }
 }
 
@@ -46,7 +47,7 @@ void main() async {
   String? lang = GetStorage().read("lang");
 
   PlatformDispatcher.instance.onError = (error, stack) {
-    DmartAPIS.submit(SPACES.applications.name, 'log', 'logs', {
+    DmartAPIS.submit('applications', 'log', 'logs', {
       "error": {
         "class": error.toString(),
         "stack": stack.toString(),
@@ -57,6 +58,8 @@ void main() async {
 
   runApp(
     GetMaterialApp(
+      theme: ThemeManager.lightThemeData,
+      darkTheme: ThemeManager.darkThemeData,
       locale: Locale(lang ?? "en"),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

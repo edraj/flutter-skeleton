@@ -6,7 +6,7 @@ class QueryRequest {
   QueryType queryType;
   String spaceName;
   String subpath;
-  String search;
+  String? search;
   List<ResourceType>? filterTypes;
   List<String>? filterSchemaNames;
   List<String>? filterShortnames;
@@ -26,7 +26,7 @@ class QueryRequest {
     required this.queryType,
     required this.spaceName,
     required this.subpath,
-    required this.search,
+    this.search,
     this.filterTypes,
     this.filterSchemaNames,
     this.filterShortnames,

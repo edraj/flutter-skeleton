@@ -26,7 +26,7 @@ class FieldErrorContainer extends StatelessWidget {
             message,
             style: const TextStyle(
               fontSize: 13,
-              fontFamily: 'KanunAR',
+              fontFamily: 'IBMPlexSansArabic',
               // Assuming you have imported the custom font
               fontWeight: FontWeight.w500,
               color: Color(0xFFF55858),
