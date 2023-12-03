@@ -1,6 +1,7 @@
 import 'package:dmart_android_flutter/domain/models/base/displayname.dart';
 import 'package:dmart_android_flutter/domain/models/base/profile/permission.dart';
 import 'package:dmart_android_flutter/domain/models/base/request/action_request.dart';
+import 'package:dmart_android_flutter/domain/models/create_user_model.dart';
 import 'package:dmart_android_flutter/domain/models/login_model.dart';
 import 'package:dmart_android_flutter/domain/repositories/dmart_apis.dart';
 import 'package:dmart_android_flutter/presentations/views/home_view/index.dart';
@@ -30,6 +31,18 @@ class UserController extends GetxController {
       Get.off(() => const HomeView());
     } else {
       Snackbars.error("Invalid credentials", error?.message ?? "");
+    }
+  }
+
+  Future<void> register(CreateUserAttributes attributes) async {
+    CreateUserRequestModel createUserRequestModel =
+        CreateUserRequestModel(attributes: attributes);
+    var (response, error) = await DmartAPIS.createUser(createUserRequestModel);
+    if (response != null) {
+      Snackbars.success("Account Created", "");
+      Get.off(() => const LoginView());
+    } else {
+      Snackbars.error("Something went wrong", error?.message ?? "");
     }
   }
 
