@@ -2,6 +2,9 @@
   "en": "الانجليزية",
   "ar": "العربية",
   "login": "تسجيل الدخول",
+  "register": "تسجيل",
+  "name": "اسم",
+  "name_is_required": "مطلوب اسم!",
   "logout": "تسجيل خروج",
   "shortname": "اسم المستخدم",
   "password": "كلمة المرور",
@@ -11,9 +14,12 @@
   "change_language": "تغيير اللغة",
   "home": "الرئيسية",
   "eser": "أثر",
+  "services": "خدمات",
   "profile": "حسابي",
   "english_name": "الاسم الإنجليزي",
   "arabic_name": "الاسم العربي",
   "email": "البريد الإلكتروني",
-  "msisdn": "رقم الهاتف"
+  "email_is_required": "البريد الالكتروني مطلوب!",
+  "msisdn": "رقم الهاتف",
+  "msisdn_is_required": "مطلوب رقم الهاتف!"
 }

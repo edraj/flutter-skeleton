@@ -2,6 +2,9 @@
   "en": "English",
   "ar": "Arabic",
   "login": "Login",
+  "register": "Register",
+  "name": "Name",
+  "name_is_required": "Name is required!",
   "logout": "Logout",
   "shortname": "Shortname",
   "password": "Password",
@@ -11,9 +14,12 @@
   "change_language": "Change Language",
   "home": "Home",
   "eser": "Eser",
+  "services": "Services",
   "profile": "Profile",
   "english_name": "English Name",
   "arabic_name": "Arabic Name",
   "email": "Email",
-  "msisdn": "MSISDN"
+  "email_is_required": "Email is required!",
+  "msisdn": "MSISDN",
+  "msisdn_is_required": "MSISDN is required!"
 }

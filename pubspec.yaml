@@ -29,6 +29,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   flutter_native_splash: ^2.3.2
+  dart_code_metrics:
 
 flutter:
   uses-material-design: true
@@ -37,26 +38,22 @@ flutter:
     - assets/images/
     - assets/images/login/
   fonts:
-  - family: KanunAR
-    fonts:
-      - asset: assets/fonts/kanun_ar_lt_black.otf
-        weight: 900
-      - asset: assets/fonts/kanun_ar_lt_bold.otf
-        weight: 700
-      - asset: assets/fonts/kanun_ar_lt_extra_light.otf
-        weight: 200
-      - asset: assets/fonts/kanun_ar_lt_hairline.otf
-        weight: 100
-      - asset: assets/fonts/kanun_ar_lt_heavy.otf
-        weight: 800
-      - asset: assets/fonts/kanun_ar_lt_light.otf
-        weight: 300
-      - asset: assets/fonts/kanun_ar_lt_medium.otf
-        weight: 500
-      - asset: assets/fonts/kanun_ar_lt_regular.otf
-        weight: 400
-      - asset: assets/fonts/kanun_ar_lt_thin.otf
-        weight: 100
+    - family: IBMPlexSansArabic
+      fonts:
+        - asset: assets/fonts/IBMPlexSansArabic-Bold.ttf
+          weight: 900
+        - asset: assets/fonts/IBMPlexSansArabic-SemiBold.ttf
+          weight: 700
+        - asset: assets/fonts/IBMPlexSansArabic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/IBMPlexSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/IBMPlexSansArabic-Light.ttf
+          weight: 300
+        - asset: assets/fonts/IBMPlexSansArabic-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/IBMPlexSansArabic-Thin.ttf
+          weight: 100
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
